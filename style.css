@@ -3,9 +3,23 @@
 /* Footer
 -----------------------------------------------------------------------------*/
 .footer {
- 	height: 50px; 
+ 	height: 20px; 
  	background: #f7f7f7;
  	position: absolute;
 	bottom: 0;
 	width: 100%;
 }
+
+.node circle {
+	  fill: #fff;
+	  stroke: steelblue;
+	  stroke-width: 3px;
+	}
+
+.node text { font: 12px sans-serif; }
+
+.link {
+	  fill: none;
+	  stroke: #ccc;
+	  stroke-width: 2px;
+	}

@@ -11,6 +11,8 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<script src="http://code.jquery.com/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="js/main.js"></script>
 </head>
 
 <body>
@@ -35,6 +37,7 @@
                 <li><a href="#">Записи</a></li>
                 <li><a href="#">Пси-графики</a></li>
                 <li><a href="#">Профиль</a></li>
+                <li><a href="#">Инструкция</a></li>
                 <li><a href="#">О сервисе</a></li>
             </ul>
         </div>
@@ -64,31 +67,42 @@
             </div>
             <div class="col-sm-6 col-md-4 col-lg-5">
     <div class="panel panel-default">
+        <div class="panel-heading">Шаг №2</div>
     <form class="form-horizontal">
         <div class="form-group">
         <div class="col-xs-12">
             <h4 class="text-center">Вы, лолка?</h4>
         </div>
         <div class=" col-xs-6">
-            <button type="submit" class="btn btn-success btn-lg" >Да</button>
+             <div class="pull-right">
+            <button type="submit" class="btn btn-success btn-lg">Да</button>
+            </div> 
         </div>
         <div class="col-xs-6">
+            <div class="pull-left">
             <button type="submit" class="btn btn-danger btn-lg">Нет</button>
+            </div>
         </div>
     </div>
 </form>
                 </div >
             </div>
-            <div class="col-sm-6 col-md-4 col-lg-5"><p>Box 3ox 3ox 3ox 3ox 3ox 3ox 3ox 3ox 3</p></div>
-            <div class="col-sm-12 col-md-12 col-lg-12 hidden-xs"><p>Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4Box 4</p></div>
+            <div class="col-sm-6 col-md-4 col-lg-5">
+                <em>Лолка</em>
+                <p>Быть лолкой это норма!</p>
+            </div>
+            <div  class="col-sm-12 col-md-12 col-lg-12 hidden-xs">
+                <h3 class="text-center">Визуальная схема:</h3>
+                <div id="diagramView" class="panel panel-default">
+                </div>   
+            </div>
         </div>
     </div>
 
 	<footer class="footer">
-	<p class="text-center">PsyHelp 2014.</p>
+	<p class="text-center">PsyHelp 2014</p>
 	</footer><!-- .footer -->
 
-</div><!-- .wrapper -->
 
 </body>
 </html>

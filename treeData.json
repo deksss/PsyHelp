@@ -1,0 +1,28 @@
+[
+  {
+  "name": "Пичалька",
+  "parent": "null",
+  "children": [
+    {
+      "name": "Вы лолка?",
+      "parent": "Top Level",
+      "children": [
+        {
+          "name": "да",
+          "parent": "Level 2: A"
+        },
+        {
+          "name": "нет",
+          "parent": "Level 2: A",
+           "children": [
+        {
+          "name": "пидора ответ!",
+          "parent": "нет"
+        }
+      ]
+        }
+      ]
+    }
+  ]
+}
+]
