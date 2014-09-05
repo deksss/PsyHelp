@@ -10,7 +10,7 @@ var tree = d3.layout.tree()
 	.size([height, width]);
 
 var diagonal = d3.svg.diagonal()
-	.projection(function(d) { return [d.y, d.x]; });
+	.projection(function(d) { return [d.x, d.y]; });
 
 var svg = d3.select("[id=diagramView]").append("svg")
 	.attr("width", width + margin.right + margin.left)
@@ -29,9 +29,10 @@ function update(source) {
   // Compute the new tree layout.
   var nodes = tree.nodes(root).reverse(),
 	  links = tree.links(nodes);
+	
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d) { d.y = d.depth * 180; });
+  nodes.forEach(function(d) { d.y = d.depth * 100; });
 
   // Declare the nodes…
   var node = svg.selectAll("g.node")
@@ -41,11 +42,29 @@ function update(source) {
   var nodeEnter = node.enter().append("g")
 	  .attr("class", "node")
 	  .attr("transform", function(d) { 
-		  return "translate(" + d.y + "," + d.x + ")"; });
+		  return "translate(" + d.x + "," + d.y + ")"; });	  
+ 
 
-  nodeEnter.append("circle")
-	  .attr("r", 10)
-	  .style("fill", "#fff");
+	//    nodeEnter.append(node.figure)
+	//  .attr("r", 10)
+	//  .style("fill", "#fff")
+	//  .attr("width", 20)
+   //   .attr("height", 20)
+
+
+ var circles = nodeEnter.filter(function (d) {
+        return d.figure == "circle"
+    })
+            .append("circle")
+            .attr("r", 10)
+            .style("fill", "#fff");
+
+    var rect = nodeEnter.filter(function (d) {
+        return d.figure == "rect"
+    })
+            .append("rect")
+            .attr("width", 10)
+            .attr("height", 10);
 
   nodeEnter.append("text")
 	  .attr("x", function(d) { 
