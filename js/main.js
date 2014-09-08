@@ -1,5 +1,16 @@
 window.onload = function () {
 
+$.getJSON( "treeData.json", function( json ) {
+if(json[0].typeOf==="Stage-Start") {
+  var stage = [];
+  stage.caption = json[0].name;
+  $( "#stageCaption" ).append(  stage.caption);
+}
+});
+
+
+
+// Draw Graf
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
 	width = 960 - margin.right - margin.left,
 	height = 500 - margin.top - margin.bottom;
@@ -64,7 +75,8 @@ function update(source) {
     })
             .append("rect")
             .attr("width", 10)
-            .attr("height", 10);
+            .attr("height", 10)
+            ;
 
   nodeEnter.append("text")
 	  .attr("x", function(d) { 
