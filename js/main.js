@@ -1,12 +1,66 @@
-window.onload = function () {
+$( document ).ready(function() {
+
+
+function updateModel (element) {
+  var stage = [];
+  stage.caption = element.name;
+ $( "#stageCaption" ).empty();
+ $( "#centerButton" ).empty();
+ $( "#centerButton" ).addClass("hidden");
+ $( "#leftButton" ).empty();
+ $( "#leftButton" ).addClass("hidden");
+ $( "#rightButton" ).empty();
+ $( "#rightButton" ).addClass("hidden");
+  $( "#stageCaption" ).append( stage.caption );
+  if ( element.children ) {
+      element.children.forEach(addButton);  
+  }
+}
 
 $.getJSON( "treeData.json", function( json ) {
+  answerFormInit(json);
+});
+
+function answerFormInit (json) {
 if(json[0].typeOf==="Stage-Start") {
   var stage = [];
   stage.caption = json[0].name;
-  $( "#stageCaption" ).append(  stage.caption);
+  stage.button = 'Начать';
+  $( "#stageCaption" ).append( stage.caption );
+  $( "#centerButton" ).append( stage.button );
+  if (json[0].children){
+    var childrenOne = json[0].children[0];
+    $( "#centerButton" ).removeClass("hidden");
+    $( "#centerButton" ).bind( "click", function( ) { updateModel (childrenOne); });
+    }
+  }
 }
-});
+
+
+
+function addButton (element, index, array) {
+ var elementType = element.typeOf;
+ if (elementType==="Answer-Yes" || elementType==="Answer-No") {
+    if (elementType==="Answer-Yes") {
+        var id = "#leftButton";  
+    }
+    if (elementType==="Answer-No") {
+        var id = "#rightButton";  
+    }
+    var name = element.name || "null";
+    var elementChildren = element.children || "null";
+    if ( id && name && elementChildren ) {
+      $( id ).append( name );
+      $( id ).removeClass("hidden");
+      $( id ).bind( "click", function( ) { updateModel (elementChildren[0]); });
+    }
+  }
+}
+
+function buttonHealear (element) {
+  updateModel(element);
+}
+
 
 
 
@@ -45,7 +99,7 @@ function update(source) {
   // Normalize for fixed-depth.
   nodes.forEach(function(d) { d.y = d.depth * 100; });
 
-  // Declare the nodes�
+  // Declare the nodes…
   var node = svg.selectAll("g.node")
 	  .data(nodes, function(d) { return d.id || (d.id = ++i); });
 
@@ -87,7 +141,7 @@ function update(source) {
 	  .text(function(d) { return d.name; })
 	  .style("fill-opacity", 1);
 
-  // Declare the links�
+  // Declare the links…
   var link = svg.selectAll("path.link")
 	  .data(links, function(d) { return d.target.id; });
 
@@ -98,4 +152,4 @@ function update(source) {
 
 }
 
-};
+});
