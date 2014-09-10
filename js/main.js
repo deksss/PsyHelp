@@ -4,14 +4,17 @@ $( document ).ready(function() {
 function updateModel (element) {
   var stage = [];
   stage.caption = element.name;
+  stage.tooltip = element.tooltip;
  $( "#stageCaption" ).empty();
  $( "#centerButton" ).empty();
+ $( "#tooltip" ).empty();
+$( "#leftButton" ).empty();
+  $( "#rightButton" ).empty();
  $( "#centerButton" ).addClass("hidden");
- $( "#leftButton" ).empty();
  $( "#leftButton" ).addClass("hidden");
- $( "#rightButton" ).empty();
  $( "#rightButton" ).addClass("hidden");
-  $( "#stageCaption" ).append( stage.caption );
+  $( "#stageCaption" ).append( stage.caption );  
+ $( "#tooltip" ).append( stage.tooltip);
   if ( element.children ) {
       element.children.forEach(addButton);  
   }
@@ -25,7 +28,10 @@ function answerFormInit (json) {
 if(json[0].typeOf==="Stage-Start") {
   var stage = [];
   stage.caption = json[0].name;
+  stage.tooltip = json[0].tooltip;
   stage.button = 'Начать';
+  $( "#tooltip" ).empty();
+  $( "#tooltip" ).append( stage.tooltip );
   $( "#stageCaption" ).append( stage.caption );
   $( "#centerButton" ).append( stage.button );
   if (json[0].children){
@@ -35,6 +41,7 @@ if(json[0].typeOf==="Stage-Start") {
     }
   }
 }
+
 
 
 
@@ -57,9 +64,6 @@ function addButton (element, index, array) {
   }
 }
 
-function buttonHealear (element) {
-  updateModel(element);
-}
 
 
 
@@ -96,8 +100,8 @@ function update(source) {
 	  links = tree.links(nodes);
 	
 
-  // Normalize for fixed-depth.
-  nodes.forEach(function(d) { d.y = d.depth * 100; });
+  // Normalize for fixed-depth. тут вычисляеться растояние между нодами
+  nodes.forEach(function(d) { d.y = d.depth * 50; });
 
   // Declare the nodes…
   var node = svg.selectAll("g.node")
@@ -109,32 +113,31 @@ function update(source) {
 	  .attr("transform", function(d) { 
 		  return "translate(" + d.x + "," + d.y + ")"; });	  
  
-
-	//    nodeEnter.append(node.figure)
-	//  .attr("r", 10)
-	//  .style("fill", "#fff")
-	//  .attr("width", 20)
-   //   .attr("height", 20)
-
-
  var circles = nodeEnter.filter(function (d) {
         return d.figure == "circle"
     })
-            .append("circle")
-            .attr("r", 10)
-            .style("fill", "#fff");
+            .append("rect")
+            .attr("width", 20)
+            .attr("height", 20)
+            .attr("rx", 1)
+            .attr("ry", 1).
+            attr("transform", "rotate(45)")
+            ;
 
     var rect = nodeEnter.filter(function (d) {
         return d.figure == "rect"
     })
             .append("rect")
-            .attr("width", 10)
-            .attr("height", 10)
+            .attr("x", function(d) { d.x = d.x + 10; })
+            .attr("width", 20)
+            .attr("height", 20)
+            .attr("rx", 1)
+            .attr("ry", 1)
             ;
 
   nodeEnter.append("text")
 	  .attr("x", function(d) { 
-		  return d.children || d._children ? -13 : 13; })
+		  return d.children || d._children ? 30 : -13; })
 	  .attr("dy", ".35em")
 	  .attr("text-anchor", function(d) { 
 		  return d.children || d._children ? "end" : "start"; })

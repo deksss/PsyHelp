@@ -18,14 +18,57 @@
           "parent": "Вы лолка",
           "figure": "rect",
           "typeOf": "Answer-Yes",
-          "tooltip": "azaza"
+          "tooltip": "",
+          "children": [
+  {
+  "name": "Пичаль",
+  "parent": "null",
+  "figure": "rect",
+  "typeOf": "Stage-Start",
+  "tooltip": "Ответьте на  вопросы - для получения советов",
+  "children":  [
+    {
+      "name": "Вы лолка?",
+      "parent": "Пичалька",
+      "figure": "circle",
+      "typeOf": "Quest",
+      "tooltip": "Будьте откровенны",
+      "children": [
+        {
+          "name": "да",
+          "parent": "Вы лолка",
+          "figure": "rect",
+          "typeOf": "Answer-Yes",
+          "tooltip": ""
         },
         {
           "name": "нет",
           "parent": "Вы лолка",
           "figure": "rect",
           "typeOf": "Answer-No",
-          "tooltip": "azaza",
+          "tooltip": "",
+          "children": [
+        {
+          "name": "пидора ответ, сосайте!",
+          "parent": "нет",
+          "figure": "rect",
+          "typeOf": "Stage-End",
+          "tooltip": "Ппц"
+        }
+      ]
+        }
+      ]
+    }
+  ]
+}
+]
+        },
+        {
+          "name": "нет",
+          "parent": "Вы лолка",
+          "figure": "rect",
+          "typeOf": "Answer-No",
+          "tooltip": "",
           "children": [
         {
           "name": "пидора ответ, сосайте!",
