@@ -20,15 +20,9 @@
           "typeOf": "Answer-Yes",
           "tooltip": "",
           "children": [
-  {
-  "name": "Пичаль",
-  "parent": "null",
-  "figure": "rect",
-  "typeOf": "Stage-Start",
-  "tooltip": "Ответьте на  вопросы - для получения советов",
-  "children":  [
+  
     {
-      "name": "Вы лолка?",
+      "name": "Хотите измениться?",
       "parent": "Пичалька",
       "figure": "rhomb",
       "typeOf": "Quest",
@@ -49,7 +43,7 @@
           "tooltip": "",
           "children": [
         {
-          "name": "пидора ответ, сосайте!",
+          "name": "пидора ответ, сосайте!(да-да)",
           "parent": "нет",
           "figure": "rect",
           "typeOf": "Stage-End",
@@ -60,24 +54,7 @@
       ]
     }
   ]
-}
-]
-        },
-        {
-          "name": "нет",
-          "parent": "Вы лолка",
-          "figure": "line",
-          "typeOf": "Answer-No",
-          "tooltip": "",
-          "children": [
-        {
-          "name": "пидора ответ, сосайте!",
-          "parent": "нет",
-          "figure": "rect",
-          "typeOf": "Stage-End",
-          "tooltip": "Ппц"
-        }
-      ]
+        
         }
       ]
     }

@@ -1,7 +1,18 @@
 $( document ).ready(function() {
 
+ $("#getStart, #getStartMenu").bind( "click", function()  { 
+  $( "#main" ).removeClass("hidden"); 
+  $( "#home" ).addClass("hidden"); 
+});
 
-function updateModel (element) {
+  $( "#goHome" ).bind( "click", function()  { 
+  $( "#home" ).removeClass("hidden"); 
+  $( "#main" ).addClass("hidden"); 
+});
+
+
+function updateModel (element, stageIterator, arrAnswer) { 
+ stageIterator+=1;
   var stage = [];
   stage.caption = element.name;
   stage.tooltip = element.tooltip;
@@ -9,15 +20,22 @@ function updateModel (element) {
  $( "#centerButton" ).empty();
  $( "#tooltip" ).empty();
 $( "#leftButton" ).empty();
+$( "#stageNumber" ).empty();
+ $( "#stageNumber" ).append( stageIterator );
   $( "#rightButton" ).empty();
  $( "#centerButton" ).addClass("hidden");
  $( "#leftButton" ).addClass("hidden");
  $( "#rightButton" ).addClass("hidden");
   $( "#stageCaption" ).append( stage.caption );  
  $( "#tooltip" ).append( stage.tooltip);
+   $( "#buttonBack" ).bind( "click", function( ) { buttonBack(arrAnswer[1]); });
   if ( element.children ) {
-      element.children.forEach(addButton);  
-  }
+      element.children.forEach(addButton, stageIterator); 
+      } 
+}
+
+function buttonBack(element, stageIterator){
+  updateModel (element, stageIterator);
 }
 
 $.getJSON( "treeData.json", function( json ) {
@@ -25,6 +43,7 @@ $.getJSON( "treeData.json", function( json ) {
 });
 
 function answerFormInit (arrAnswer) {
+  var stageIterator=1;
 if(arrAnswer[0].typeOf==="Stage-Start") {
   var stage = [];
   stage.caption = arrAnswer[0].name;
@@ -34,16 +53,18 @@ if(arrAnswer[0].typeOf==="Stage-Start") {
   $( "#tooltip" ).append( stage.tooltip );
   $( "#stageCaption" ).append( stage.caption );
   $( "#centerButton" ).append( stage.button );
+  $( "#stageNumber" ).empty();
+ $( "#stageNumber" ).append( stageIterator );
   if (arrAnswer[0].children){
     var childrenOne = arrAnswer[0].children[0];
     $( "#centerButton" ).removeClass("hidden");
-    $( "#centerButton" ).bind( "click", function( ) { updateModel (childrenOne); });
+    $( "#centerButton" ).bind( "click", function( ) { updateModel (childrenOne, stageIterator, arrAnswer); });
     }
   }
 }
 
 
-function addButton (element, index, array) {
+function addButton (element, stageIterator) {
  var elementType = element.typeOf;
  if (elementType==="Answer-Yes" || elementType==="Answer-No") {
     if (elementType==="Answer-Yes") {
@@ -52,17 +73,18 @@ function addButton (element, index, array) {
     if (elementType==="Answer-No") {
         var id = "#rightButton";  
     }
+    if (elementType==="Answer-Next") {
+        var id = "#centerButton";  
+    }
     var name = element.name || "null";
     var elementChildren = element.children || "null";
     if ( id && name && elementChildren ) {
       $( id ).append( name );
       $( id ).removeClass("hidden");
-      $( id ).bind( "click", function( ) { updateModel (elementChildren[0]); });
+      $( id ).bind( "click", function( ) { updateModel (elementChildren[0], stageIterator); });
     }
   }
 }
-
-
 
 
 
