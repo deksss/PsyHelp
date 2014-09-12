@@ -24,25 +24,23 @@ $.getJSON( "treeData.json", function( json ) {
   answerFormInit(json);
 });
 
-function answerFormInit (json) {
-if(json[0].typeOf==="Stage-Start") {
+function answerFormInit (arrAnswer) {
+if(arrAnswer[0].typeOf==="Stage-Start") {
   var stage = [];
-  stage.caption = json[0].name;
-  stage.tooltip = json[0].tooltip;
+  stage.caption = arrAnswer[0].name;
+  stage.tooltip = arrAnswer[0].tooltip;
   stage.button = 'Начать';
   $( "#tooltip" ).empty();
   $( "#tooltip" ).append( stage.tooltip );
   $( "#stageCaption" ).append( stage.caption );
   $( "#centerButton" ).append( stage.button );
-  if (json[0].children){
-    var childrenOne = json[0].children[0];
+  if (arrAnswer[0].children){
+    var childrenOne = arrAnswer[0].children[0];
     $( "#centerButton" ).removeClass("hidden");
     $( "#centerButton" ).bind( "click", function( ) { updateModel (childrenOne); });
     }
   }
 }
-
-
 
 
 function addButton (element, index, array) {
@@ -114,14 +112,15 @@ function update(source) {
 		  return "translate(" + d.x + "," + d.y + ")"; });	  
  
  var circles = nodeEnter.filter(function (d) {
-        return d.figure == "circle"
+        return d.figure == "rhomb"
     })
             .append("rect")
+            .attr("x", function(d) { d.x = d.x + 10; })
             .attr("width", 20)
             .attr("height", 20)
             .attr("rx", 1)
-            .attr("ry", 1).
-            attr("transform", "rotate(45)")
+            .attr("ry", 1)
+            .attr("transform", "rotate(45)")
             ;
 
     var rect = nodeEnter.filter(function (d) {
@@ -131,6 +130,17 @@ function update(source) {
             .attr("x", function(d) { d.x = d.x + 10; })
             .attr("width", 20)
             .attr("height", 20)
+            .attr("rx", 1)
+            .attr("ry", 1)
+            ;
+
+              var rect = nodeEnter.filter(function (d) {
+        return d.figure == "line"
+    })
+            .append("rect")
+            .attr("x", function(d) { d.x = d.x + 10; })
+            .attr("width", 1)
+            .attr("height", 1)
             .attr("rx", 1)
             .attr("ry", 1)
             ;

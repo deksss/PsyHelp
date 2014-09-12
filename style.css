@@ -2,12 +2,7 @@
 
 /* Footer
 -----------------------------------------------------------------------------*/
-.footer {
- 	height: 20px; 
- 	background: #f7f7f7;
-	bottom: 0;
-	width: 100%;
-}
+
 
 .node circle {
 	  fill: #fff;
@@ -28,3 +23,6 @@
 	  stroke: #ccc;
 	  stroke-width: 2px;
 	}
+#answerPanel {
+	min-height: 150px;
+}
