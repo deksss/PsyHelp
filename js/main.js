@@ -1,5 +1,6 @@
 $( document ).ready(function() {
 
+(function ($,windod){
  $("#getStart, #getStartMenu").bind( "click", function()  { 
   $( "#main" ).removeClass("hidden"); 
   $( "#home" ).addClass("hidden"); 
@@ -85,7 +86,7 @@ function addButton (element, stageIterator) {
     }
   }
 }
-
+})(jQuery,window);
 
 
 // Draw Graf
