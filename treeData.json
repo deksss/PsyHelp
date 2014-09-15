@@ -8,7 +8,7 @@
   "children":  [
     {
       "name": "Вы лолка?",
-      "parent": "Пичалька",
+      "parent": "Пичаль...",
       "figure": "rhomb",
       "typeOf": "Quest",
       "tooltip": "Будьте откровенны",
@@ -17,27 +17,27 @@
           "name": "да",
           "parent": "Вы лолка",
           "figure": "line",
-          "typeOf": "Answer-Yes",
+          "typeOf": "Answer-Next",
           "tooltip": "",
           "children": [
   
     {
       "name": "Хотите измениться?",
-      "parent": "Пичалька",
+      "parent": "да",
       "figure": "rhomb",
       "typeOf": "Quest",
       "tooltip": "Будьте откровенны",
       "children": [
         {
           "name": "да",
-          "parent": "Вы лолка",
+          "parent": "Хотите измениться?",
           "figure": "line",
           "typeOf": "Answer-Yes",
           "tooltip": ""
         },
         {
           "name": "нет",
-          "parent": "Вы лолка",
+          "parent": "Хотите измениться?",
           "figure": "line",
           "typeOf": "Answer-No",
           "tooltip": "",
