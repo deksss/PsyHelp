@@ -1,6 +1,4 @@
-$( document ).ready(function() {
-
-(function( window ) {
+function drawGraf( data ) {
   
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
 	width = 960 - margin.right - margin.left,
@@ -21,7 +19,7 @@ var svg = d3.select("[id=diagramView]").append("svg")
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // load the external data
-d3.json("treeData.json", function(error, treeData) {
+d3.json(data, function(error, treeData) {
   root = treeData[0];
   update(root);
 });
@@ -97,8 +95,6 @@ function update(source) {
   link.enter().insert("path", "g")
 	  .attr("class", "link")
 	  .attr("d", diagonal);
-
 }
-})( window );
+}
 
-});

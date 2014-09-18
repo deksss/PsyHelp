@@ -1,6 +1,6 @@
 $( document ).ready(function() {
 
-(function($, windod) {
+(function($, windod, drawGrafMethod) {
 
   $("#getStart, #getStartMenu").bind("click", function() {
     $("#" + "main").removeClass("hidden");
@@ -32,10 +32,10 @@ function addItem (item) {
   itemHTML =  itemHTML.replace("{{id}}", itemId);
 $("#listOfSubject").append(itemHTML);
 $("#"+itemId).bind("click", function(e) {
-   alert(item.file);
+  drawGraf(item.file);
   });  
 };
-})(jQuery, window);
+})(jQuery, window, drawGraf);
 
 
 });
