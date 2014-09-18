@@ -1,0 +1,16 @@
+{
+	"list": [
+		{
+			"name" : "Депрессия",
+			"file" : "depression.json"			
+		},
+		{			
+			"name" : "Плохое настроение",
+			"file" : "treeData.json"		
+		},
+		{
+			"name" : "azazaza",
+			"file" : "treeData.json"
+		}
+	]
+}
