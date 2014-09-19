@@ -2,7 +2,7 @@
 	"list": [
 		{
 			"name" : "Депрессия",
-			"file" : "depression.json"			
+			"file" : "treeData.json"			
 		},
 		{			
 			"name" : "Плохое настроение",

@@ -1,4 +1,4 @@
-(function($, windod) {
+var answerApp = function(data) {
 /**
 * @param {Object} element
 * @param {number} stageIterator
@@ -11,11 +11,7 @@ stageIterator += 1;
 var stage = [];
 stage.caption = element.name;
 stage.tooltip = element.tooltip;
-$("#stageCaption").empty();
-$("#centerButton").empty();
-$("#tooltip").empty();
-$("#leftButton").empty();
-$("#stageNumber").empty();
+formEmpty();
 $("#stageNumber").append(stageIterator);
 $("#rightButton").empty();
 $("#centerButton").addClass("hidden");
@@ -29,6 +25,17 @@ buttonBack(arrAnswer[1]);
 if (element.children) {
 element.children.forEach(addButton);
 }
+}
+
+function formEmpty (){
+$("#stageCaption").empty();
+$("#centerButton").empty();
+$("#tooltip").empty();
+$("#leftButton").empty();
+$("#stageNumber").empty();
+$("#centerButton").addClass("hidden");
+$("#leftButton").addClass("hidden");
+$("#rightButton").addClass("hidden");
 }
 /**
 * @param {Object} element
@@ -45,6 +52,7 @@ updateModel(element, stageIterator);
 function answerFormInit(arrAnswer) {
 /** @type {number} */
 var stageIterator = 1;
+formEmpty();
 if (arrAnswer[0].typeOf === "Stage-Start") {
 /** @type {Array} */
 var stage = [];
@@ -102,7 +110,7 @@ updateModel(elementChildren[0], stageIterator);
 }
 }
 
-$.getJSON("treeData.json", function(json) {
+$.getJSON( data, function(json) {
 answerFormInit(json);
 });
-})(jQuery, window);
+}
