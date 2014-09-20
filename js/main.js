@@ -1,7 +1,7 @@
 $( document ).ready(function() {
 
 (function($, windod) {
-  $("#getStart, #getStartMenu").bind("click", function() {
+  $("#getStart, #goShemes").bind("click", function() {
     $("#main").removeClass("hidden");
     $("#home").addClass("hidden");
     $("#about").addClass("hidden");
@@ -18,7 +18,6 @@ $( document ).ready(function() {
    
     if (!$("#goHelp").hasClass('active'))
     {
-      alert("w");
         $("#goHelp").parent().find('li').removeClass('active');
         $("#goHelp").addClass('active');
     }
@@ -42,7 +41,7 @@ var pageController = {};
 pageController.elementList = 
 [
 {"id":"#getStart","contentId" : "#main"},
-{"id":"#getStartMenu","contentId" : "#main"},
+{"id":"#goShemes","contentId" : "#main"},
 {"id":"#goHome","contentId" : "#home"},
 {"id":"#goHelp","contentId" : "#help"},
 {"id":"#goAbou","contentId" : "#about"}
@@ -63,7 +62,6 @@ pageController.addHndl = function (element) {
         $(element).parent().find('li').removeClass('active');
         $(element).addClass('active');
     } 
-
 }
 
 
