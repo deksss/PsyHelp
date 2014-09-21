@@ -1,16 +1,16 @@
 {
-	"list": [
-		{
-			"name" : "Депрессия",
-			"file" : "treeData.json"			
-		},
-		{			
-			"name" : "Плохое настроение",
-			"file" : "treeData.json"		
-		},
-		{
-			"name" : "azazaza",
-			"file" : "treeData.json"
-		}
-	]
+  "list": [
+    {
+      "name": "Депрессия",
+      "file": "treeData.json"
+    },
+    {
+      "name": "Плохое настроение",
+      "file": "treeData.json"
+    },
+    {
+      "name": "azazaza",
+      "file": "treeData.json"
+    }
+  ]
 }

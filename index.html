@@ -8,6 +8,7 @@
       <meta name="keywords" content="" />
       <meta name="description" content="" />
       <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+      <link href="css/ihover.css" rel="stylesheet">
       <link href="css/style.css" rel="stylesheet">
       <script src="http://code.jquery.com/jquery.min.js"></script>
       <script src="js/bootstrap.min.js"></script>
@@ -48,6 +49,20 @@
       </nav>
      <div id="home" class="container-fluid">
           <div class="jumbotron ">
+            <div class="row">
+  <div class="col-sm-6">
+ 
+    <!-- normal -->
+    <div class="ih-item square effect6 from_top_and_bottom"><a href="#">
+        <div class="img"><img src="images/stardust.png" alt="img"></div>
+        <div class="info">
+          <h3>PsyHelp</h3>
+          <p>создан как помощник для облегчения 
+               психического состояния в различных бытовых ситуациях.</p>
+        </div></a></div>
+    <!-- end normal -->
+ </div>
+  </div>
             <h2>PsyHelp - создан как помощник для облегчения 
                психического состояния в различных бытовых ситуациях.</h2> 
             <p>Отвечая на предложенные вопросы и отслеживая свои ответы
@@ -82,14 +97,14 @@
 
      <div class="panel panel-default">
                   <div class="panel-heading">
-      <h3 class="panel-title">
+      <div class="panel-title">
           <div class="input-group">
                   <input type="text" class="form-control" placeholder="Что вас беспокоит?&hellip;">
                   <span class="input-group-btn">                    
                   <button type="button" class="btn btn-default">Поиск</button>
                   </span>   
                </div>
-      </h3>        
+      </div>        
                       </div>
 <ul class="nav nav-pills" id="listOfSubject">
 
@@ -114,27 +129,23 @@
                            <div class="form-group">
                               <div class="col-xs-12">
                                  <h4 class="text-center" id="stageCaption">
-                                    <div></div>
                                  </h4>
                               </div>
                               <div class=" col-xs-4">
                                  <div class="pull-right">
                                     <button id="leftButton" type="submit" class="btn btn-success btn-lg hidden">
-                                       <div></div>
                                     </button>
                                  </div>
                               </div>
                               <div class=" col-xs-4">
                                  <div class="pull-center">
                                     <button id="centerButton" type="submit" class="btn btn-success btn-block hidden">
-                                       <div></div>
                                     </button>
                                  </div>
                               </div>
                               <div class="col-xs-4">
                                  <div class="pull-left">
                                     <button id="rightButton" type="submit" class="btn btn-danger btn-lg hidden">
-                                       <div></div>
                                     </button>
                                  </div>
                               </div>
