@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+   /*
     (function($, windod) {
         $("#getStart, #goShemes").bind("click", function() {
             $("#main").removeClass("hidden");
@@ -32,8 +33,8 @@ $(document).ready(function() {
             $("#home").addClass("hidden");
             $("#help").addClass("hidden");
         });
-    })(jQuery, window);
-
+    })(jQuery, window); 
+*/
 
     var pageController = {};
 
@@ -50,24 +51,29 @@ $(document).ready(function() {
         "id": "#goHelp",
         "contentId": "#help"
     }, {
-        "id": "#goAbou",
+        "id": "#goAbout",
         "contentId": "#about"
     }];
 
-    pageController.contentList = [
-        "#main", "#home", "#help", "#about"
-    ]
-
-    pageController.controll = function() {
+    pageController.load = function() {
         self = this;
         self.elementList.forEach(self.addHndl);
+
     }
 
     pageController.addHndl = function(element) {
-        if (!$(element).hasClass('active')) {
-            $(element).parent().find('li').removeClass('active');
-            $(element).addClass('active');
-        }
+     var   elementBtn = element.id;
+     var target = element.contentId;
+        $(elementBtn).bind("click", function() {
+            if (!$(elementBtn).hasClass('active')) {
+                $(elementBtn).parent().find('li').removeClass('active');
+                $(elementBtn).addClass('active');
+                }
+            if ($(target).hasClass('hidden')) {
+                $('#main, #home, #about, #help').addClass('hidden');
+                $(target).removeClass('hidden');
+                }   
+        });
     }
 
 
@@ -110,7 +116,7 @@ $(document).ready(function() {
             });
         };
     }
-
+    pageController.load();
     listOftheme.load(drawGraf, answerApp, "js/listOftheme.json");
 
 });
