@@ -69,7 +69,8 @@ var addHndl = function(element) {
                 $("#shemeApp").removeClass("hidden");
                 answerMethod(item.file);
                 drawGrafMethod(item.file);
-                selectedDraw ($("#" + itemId));          
+                selectedDraw ($("#" + itemId)); 
+
             });
         };
 return {
@@ -91,55 +92,13 @@ data = source;
 }
   })();
 
-    /*var listOftheme = {
-        "itemShablon": ' <li><a id="{{id}}" href="#">{{name}}</a></li>',
-        "id": 0,
-        "curSelected": "null"
-    };
-
-
-    listOftheme.drawActive = function(element) {
-        self = this;
-        element = element.parent();
-        if (self.curSelected !== "null") {
-            self.curSelected.removeClass("active");
-        }
-        self.curSelected = element;
-        element.addClass("active");
-    }
-
-
-    listOftheme.load = function(drawGrafMethod, answerMethod, source) {
-        self = this;
-        $.getJSON(source, function(json) {
-            json.list.forEach(addItem);
-        });
-
-        function addItem(item) {
-          var target = $('#shemeApp');
-            var itemHTML = self.itemShablon;
-            var itemId = "listThemeItem" + (self.id++);
-            itemHTML = itemHTML.replace("{{name}}", item.name);
-            itemHTML = itemHTML.replace("{{id}}", itemId);
-            $("#listOfSubject").append(itemHTML);
-            $("#" + itemId).bind("click", function(e) {
-  
-                $("#shemeApp").removeClass("hidden");
-                $("#shemeApp").removeClass("hidden");
-                answerMethod(item.file);
-                drawGrafMethod(item.file);
-                self.drawActive($("#" + itemId));          
-            });
-        };
-    } */
+   
    pageController.load();
 
-    //listOftheme.load(drawGraf, answerApp, "js/listOftheme.json");
-    themeController.setAnswerMethod = answerApp;
-    themeController.setDrawGrafMethod = drawGraf;
-    themeController.setData = "js/listOftheme.json";
+    themeController.setAnswerMethod(answerApp);
+    themeController.setDrawGrafMethod(drawGraf);
+    themeController.setData("js/listOftheme.json");
     themeController.load();
-
 
 
 
