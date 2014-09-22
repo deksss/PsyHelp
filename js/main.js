@@ -1,44 +1,7 @@
 $(document).ready(function() {
 
-   /*
-    (function($, windod) {
-        $("#getStart, #goShemes").bind("click", function() {
-            $("#main").removeClass("hidden");
-            $("#home").addClass("hidden");
-            $("#about").addClass("hidden");
-            $("#help").addClass("hidden");
-        });
-        $("#goHome").bind("click", function() {
-            $("#goHome").addClass("active");
-            $("#home").removeClass("hidden");
-            $("#main").addClass("hidden");
-            $("#about").addClass("hidden");
-            $("#help").addClass("hidden");
-        });
-        $("#goHelp").bind("click", function() {
-
-            if (!$("#goHelp").hasClass('active')) {
-                $("#goHelp").parent().find('li').removeClass('active');
-                $("#goHelp").addClass('active');
-            }
-            $("#help").removeClass("hidden");
-            $("#main").addClass("hidden");
-            $("#about").addClass("hidden");
-            $("#home").addClass("hidden");
-        });
-        $("#goAbout").bind("click", function() {
-            $("#goAbout").addClass("active");
-            $("#about").removeClass("hidden");
-            $("#main").addClass("hidden");
-            $("#home").addClass("hidden");
-            $("#help").addClass("hidden");
-        });
-    })(jQuery, window); 
-*/
-
-    var pageController = {};
-
-    pageController.elementList = [{
+var pageController = (function () {
+   var elementList = [{
         "id": "#getStart",
         "contentId": "#main"
     }, {
@@ -55,13 +18,7 @@ $(document).ready(function() {
         "contentId": "#about"
     }];
 
-    pageController.load = function() {
-        self = this;
-        self.elementList.forEach(self.addHndl);
-
-    }
-
-    pageController.addHndl = function(element) {
+var addHndl = function(element) {
      var   elementBtn = element.id;
      var target = element.contentId;
         $(elementBtn).bind("click", function() {
@@ -74,10 +31,67 @@ $(document).ready(function() {
                 $(target).removeClass('hidden');
                 }   
         });
+    } 
+
+    return {
+        load : function() {
+        self = this;
+        elementList.forEach(addHndl);
     }
 
+    }
+})();
+  
+  themeController = (function () {
+       var itemShablon = '<li><a id="{{id}}" href="#">{{name}}</a></li>';
+        var id = 0;
+        var curSelected = "null";
+        var answerMethod;
+         var drawGrafMethod;
+         var data;
+   selectedDraw = function(element) {
+        element = element.parent();
+        if (curSelected !== "null") {
+           curSelected.removeClass("active");
+        }
+       curSelected = element;
+        element.addClass("active");
+    }
 
-    var listOftheme = {
+        function addItem(item) {
+          var target = $('#shemeApp');
+            var itemHTML = itemShablon;
+            var itemId = "listThemeItem" + (id++);
+            itemHTML = itemHTML.replace("{{name}}", item.name);
+            itemHTML = itemHTML.replace("{{id}}", itemId);
+            $("#listOfSubject").append(itemHTML);
+            $("#" + itemId).bind("click", function(e) {
+                $("#shemeApp").removeClass("hidden");
+                answerMethod(item.file);
+                drawGrafMethod(item.file);
+                selectedDraw ($("#" + itemId));          
+            });
+        };
+return {
+    load : function() {
+        $.getJSON(data, function(json) {
+            json.list.forEach(addItem);
+        });
+    },
+    setAnswerMethod : function ( method) {
+answerMethod = method;
+    },
+
+    setDrawGrafMethod : function (method) {
+drawGrafMethod = method;
+    },
+    setData: function (source) {
+data = source;
+    }
+}
+  })();
+
+    /*var listOftheme = {
         "itemShablon": ' <li><a id="{{id}}" href="#">{{name}}</a></li>',
         "id": 0,
         "curSelected": "null"
@@ -109,14 +123,34 @@ $(document).ready(function() {
             itemHTML = itemHTML.replace("{{id}}", itemId);
             $("#listOfSubject").append(itemHTML);
             $("#" + itemId).bind("click", function(e) {
+  
+                $("#shemeApp").removeClass("hidden");
                 $("#shemeApp").removeClass("hidden");
                 answerMethod(item.file);
                 drawGrafMethod(item.file);
-                self.drawActive($("#" + itemId));              
+                self.drawActive($("#" + itemId));          
             });
         };
-    }
-    pageController.load();
-    listOftheme.load(drawGraf, answerApp, "js/listOftheme.json");
+    } */
+   pageController.load();
+
+    //listOftheme.load(drawGraf, answerApp, "js/listOftheme.json");
+    themeController.setAnswerMethod = answerApp;
+    themeController.setDrawGrafMethod = drawGraf;
+    themeController.setData = "js/listOftheme.json";
+    themeController.load();
+
+
+
+
+$('.minimize').bind("click", function(e) {
+    var target = $(this).parent().first().next();
+    if(!target.hasClass('hidden')) {
+    target.addClass('hidden');
+} else {
+    target.removeClass('hidden');
+}
+
+});
 
 });
