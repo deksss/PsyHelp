@@ -42,7 +42,7 @@ var addHndl = function(element) {
     }
 })();
   
-  themeController = (function () {
+  var themeController = (function () {
        var itemShablon = '<li><a id="{{id}}" href="#">{{name}}</a></li>';
         var id = 0;
         var curSelected = "null";
@@ -94,8 +94,8 @@ data = source;
 
    
    pageController.load();
-
-    themeController.setAnswerMethod(answerApp);
+    answer = answerApp();
+    themeController.setAnswerMethod(answer.load);
     themeController.setDrawGrafMethod(drawGraf);
     themeController.setData("js/listOftheme.json");
     themeController.load();

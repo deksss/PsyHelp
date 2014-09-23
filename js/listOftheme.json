@@ -2,15 +2,18 @@
   "list": [
     {
       "name": "Депрессия",
-      "file": "treeData.json"
+      "file": "treeData.json",
+      "img": "images/img1.png"
     },
     {
       "name": "Плохое настроение",
-      "file": "treeData.json"
+      "file": "treeData.json",
+      "img": "images/img1.png" 
     },
     {
       "name": "azazaza",
-      "file": "treeData.json"
+      "file": "treeData.json",
+      "img": "images/img1.png"
     }
   ]
 }
