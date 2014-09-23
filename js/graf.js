@@ -61,9 +61,6 @@ function drawGraf(data) {
                 return d.figure == "rhomb"
             })
             .append("rect")
-            .attr("x", function(d) {
-                d.x = d.x + 10;
-            })
             .attr("width", 20)
             .attr("height", 20)
             .attr("rx", 1)
@@ -74,21 +71,17 @@ function drawGraf(data) {
                 return d.figure == "rect"
             })
             .append("rect")
-            .attr("x", function(d) {
-                d.x = d.x + 10;
-            })
             .attr("width", 20)
             .attr("height", 20)
             .attr("rx", 1)
-            .attr("ry", 1);
+            .attr("ry", 1)
+            .attr("transform", "translate(" + (-10) + ",0)")
+            ;
 
         var rect = nodeEnter.filter(function(d) {
                 return d.figure == "line"
             })
             .append("rect")
-            .attr("x", function(d) {
-                d.x = d.x + 10;
-            })
             .attr("width", 1)
             .attr("height", 1)
             .attr("rx", 1)
