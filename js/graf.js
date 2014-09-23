@@ -91,6 +91,7 @@ function drawGraf(data) {
             .attr("x", function(d) {
                 return d.children || d._children ? 30 : -13;
             })
+            .attr("y", +10)
             .attr("dy", ".35em")
             .attr("text-anchor", function(d) {
                 return d.children || d._children ? "end" : "start";

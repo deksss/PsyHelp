@@ -10,7 +10,9 @@
 	  stroke-width: 3px;
 	}
 
-.node text { font: 12px sans-serif; }
+.node text { font: 12px sans-serif;
+text-shadow: white 1px 0px, white 1px 1px, white 0px 1px, white -1px 1px, white -1px 0px, white -1px -1px, white 0px -1px, white 1px -1px;
+ }
 
 .link {
 	  fill: none;
