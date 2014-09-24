@@ -123,7 +123,7 @@ var answerApp = function() {
   var btnTypeArr = ["Answer-Yes", "Answer-No", "Answer-Next"];
  
    return {
-  load: function (source) {
+  load: function (source, targetView) {
     data = source;   
  $.getJSON(data, function( data ) {
     answerFormInit(data );

@@ -1,4 +1,4 @@
-function drawGraf(data) {
+function drawGraf( data, targetView ) {
 
     var margin = {
             top: 20,
@@ -20,7 +20,7 @@ function drawGraf(data) {
         });
     d3.select("svg")
         .remove();
-    var svg = d3.select("[id=diagramView]").append("svg")
+    var svg = d3.select(targetView).append("svg")
         .attr("width", width + margin.right + margin.left)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")

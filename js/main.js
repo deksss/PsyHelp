@@ -49,6 +49,8 @@ var addHndl = function(element) {
         var answerMethod;
          var drawGrafMethod;
          var data;
+         var answerView;
+         var diagramView;
    selectedDraw = function(element) {
         element = element.parent();
         if (curSelected !== "null") {
@@ -67,10 +69,9 @@ var addHndl = function(element) {
             $("#listOfSubject").append(itemHTML);
             $("#" + itemId).bind("click", function(e) {
                 $("#shemeApp").removeClass("hidden");
-                answerMethod(item.file);
-                drawGrafMethod(item.file);
+                answerMethod(item.file, answerView);
+                drawGrafMethod(item.file, diagramView);
                 selectedDraw ($("#" + itemId)); 
-
             });
         };
 return {
@@ -78,6 +79,12 @@ return {
         $.getJSON(data, function(json) {
             json.list.forEach(addItem);
         });
+    },
+    setAnswerView : function ( method) {
+answerView = method;
+    },
+    setDiagramView : function ( method) {
+diagramView = method;
     },
     setAnswerMethod : function ( method) {
 answerMethod = method;
@@ -92,13 +99,23 @@ data = source;
 }
   })();
 
-   
-   pageController.load();
-    answer = answerApp();
-    themeController.setAnswerMethod(answer.load);
-    themeController.setDrawGrafMethod(drawGraf);
-    themeController.setData("js/listOftheme.json");
-    themeController.load();
+  
+var answerView = $('#answerForm'); 
+var diagramView = "[id=diagram]";
+var theme =  "js/listOftheme.json";
+var answer = answerApp();
+var diagram = drawGraf;
+var answer = answerApp();
+
+pageController.load();
+
+themeController.setAnswerView(answerView);
+themeController.setDiagramView(diagramView);
+themeController.setAnswerMethod(answer.load);
+themeController.setAnswerMethod(answer.load);
+themeController.setDrawGrafMethod(drawGraf);
+themeController.setData(theme);
+themeController.load();
 
 
 
