@@ -10,6 +10,31 @@ var answerApp = function() {
    * @return {undefined}
    */
    var data;
+
+   function buttonHTMLGenerator (shablon, replaceArr) {
+    replaceArr.forEach(function (item) {
+        shablon.replace( item[0], item[1]);
+    });
+    return shablon;
+   };
+
+   var buttonShablon = '<div class="col-xs-4">'+
+                      '<div class="pull-{{position}}">'+
+                        '<button id="{{buttonId}}" type="submit" class="btn btn-primary btn-lg hidden">'+
+                        '</button>'+
+                      '</div>'+
+                     '</div>';
+   var captionHTML = '<div class="col-xs-12">'+
+                          '<h4 class="text-center" id="stageCaption">'+
+                         '</h4>'+
+                        '</div>';
+                        
+var buttonLeftHTML =  buttonHTMLGenerator (buttonShablon, [["{{buttonId}}", 'leftButton'], ["{{position}}", 'left']]);
+var buttonRightHTML =  buttonHTMLGenerator (buttonShablon, [["{{buttonId}}", 'rightButton'], ["{{position}}", 'right']]);
+var buttonCenterHTML =  buttonHTMLGenerator (buttonShablon, [["{{buttonId}}", 'centerButton'], ["{{position}}", 'center']]);
+
+
+
    function updateModel(element, stageIterator, arrAnswer) {
     stageIterator += 1;
     /** @type {Array} */
