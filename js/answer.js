@@ -61,6 +61,39 @@ var answerApp = function() {
   $(targetID).append(answerHTML);  
   }
 
+  function reDraw (element) {
+    formEmpty();
+
+
+  }
+
+  function Model () {
+   var centerButton = { visible: false, value: ''};
+   var leftButton = { visible: false, value: ''};
+   var rightButton = { visible: false, value: ''};
+   var stageIterator = { visible: false, value: ''};
+   var stageCaption = { visible: false, value: ''};
+   var node = 0;
+   var listers = [];
+    return {
+     nodeChange : function  (nodeNumber) { 
+        node = nodeNumber;
+        listers.forEach( function (lister) {
+          lister();
+        });
+      },
+    addLister: function (fn) {
+      lister.push(fn);
+      }
+    }
+  }
+
+  function controller  (model, view) {
+    model.addLister(view.reDraw);
+  }
+
+
+
    function updateModel(element, stageIterator, arrAnswer) {
     stageIterator += 1;
     /** @type {Array} */
