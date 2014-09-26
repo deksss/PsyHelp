@@ -40,7 +40,7 @@ var answerApp = function() {
                      '</div>';
 
    var buttonShablon = '<div class="col-xs-4">'+
-                      '<div  class="text-center pull-{{position}}">'+
+                      '<div  class="text-center">'+
                         '<button id="{{buttonId}}" type="submit" class="btn btn-primary btn-lg hidden">'+
                         '</button>'+
                       '</div>'+
@@ -51,9 +51,9 @@ var answerApp = function() {
                          '</h4>'+
                         '</div>';
                         
-  var buttonLeftHTML =  buttonHTMLGenerator (buttonShablon, [['{{buttonId}}', 'leftButton'], ['{{position}}', 'right']]);
-  var buttonRightHTML =  buttonHTMLGenerator (buttonShablon, [["{{buttonId}}", 'rightButton'], ["{{position}}", 'left']]);
-  var buttonCenterHTML =  buttonHTMLGenerator (buttonShablon, [["{{buttonId}}", 'centerButton'], ["{{position}}", 'center']]);
+  var buttonLeftHTML =  buttonHTMLGenerator (buttonShablon, [['{{buttonId}}', 'leftButton']]);
+  var buttonRightHTML =  buttonHTMLGenerator (buttonShablon, [["{{buttonId}}", 'rightButton']]);
+  var buttonCenterHTML =  buttonHTMLGenerator (buttonShablon, [["{{buttonId}}", 'centerButton']]);
   var elementsHTML = captionHTML + buttonLeftHTML + buttonCenterHTML + buttonRightHTML; 
 
   function drawDOM () {
