@@ -106,6 +106,7 @@ var theme =  "js/listOftheme.json";
 var answer = answerApp();
 var diagram = drawGraf;
 var answer = answerApp();
+answer.draw('#answerContainer');
 
 pageController.load();
 

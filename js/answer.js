@@ -10,30 +10,56 @@ var answerApp = function() {
    * @return {undefined}
    */
    var data;
+   var targetID;
 
    function buttonHTMLGenerator (shablon, replaceArr) {
+    var result = '';
+    result = shablon;
     replaceArr.forEach(function (item) {
-        shablon.replace( item[0], item[1]);
+       result = result.replace( item[0], item[1] );
     });
-    return shablon;
+    if (result){
+    return result;
+  }
    };
 
+   var answerShablon =              '<div class="panel panel-default" id="answerPanel">'+
+                        '<div class="panel-heading">'+
+                          ' <button id="buttonBack" class="btn btn-default btn-sm">'+
+                           '<span class="glyphicon glyphicon-chevron-left">'+
+                           '</span>'+
+                        '</button>'+
+                        'Шаг <span id="stageNumber"></span>'+
+                        '</div>'+
+                        '<form id="answerForm" class="form-horizontal">'+
+                           '<div class="form-group">'+
+          '{{elements}}'+
+                              '</div>'+
+                           '</div>'+
+                        '</form>'+
+                     '</div>';
+
    var buttonShablon = '<div class="col-xs-4">'+
-                      '<div class="pull-{{position}}">'+
+                      '<div  class="text-center pull-{{position}}">'+
                         '<button id="{{buttonId}}" type="submit" class="btn btn-primary btn-lg hidden">'+
                         '</button>'+
                       '</div>'+
                      '</div>';
+   
    var captionHTML = '<div class="col-xs-12">'+
                           '<h4 class="text-center" id="stageCaption">'+
                          '</h4>'+
                         '</div>';
                         
-var buttonLeftHTML =  buttonHTMLGenerator (buttonShablon, [["{{buttonId}}", 'leftButton'], ["{{position}}", 'left']]);
-var buttonRightHTML =  buttonHTMLGenerator (buttonShablon, [["{{buttonId}}", 'rightButton'], ["{{position}}", 'right']]);
-var buttonCenterHTML =  buttonHTMLGenerator (buttonShablon, [["{{buttonId}}", 'centerButton'], ["{{position}}", 'center']]);
+  var buttonLeftHTML =  buttonHTMLGenerator (buttonShablon, [['{{buttonId}}', 'leftButton'], ['{{position}}', 'right']]);
+  var buttonRightHTML =  buttonHTMLGenerator (buttonShablon, [["{{buttonId}}", 'rightButton'], ["{{position}}", 'left']]);
+  var buttonCenterHTML =  buttonHTMLGenerator (buttonShablon, [["{{buttonId}}", 'centerButton'], ["{{position}}", 'center']]);
+  var elementsHTML = captionHTML + buttonLeftHTML + buttonCenterHTML + buttonRightHTML; 
 
-
+  function drawDOM () {
+  var answerHTML = answerShablon.replace('{{elements}}', elementsHTML);
+  $(targetID).append(answerHTML);  
+  }
 
    function updateModel(element, stageIterator, arrAnswer) {
     stageIterator += 1;
@@ -148,9 +174,13 @@ var buttonCenterHTML =  buttonHTMLGenerator (buttonShablon, [["{{buttonId}}", 'c
   var btnTypeArr = ["Answer-Yes", "Answer-No", "Answer-Next"];
  
    return {
+  draw: function(whereDraw) {
+    targetID = whereDraw;
+    drawDOM();
+  }, 
   load: function (source, targetView) {
     data = source;   
- $.getJSON(data, function( data ) {
+    $.getJSON(data, function( data ) {
     answerFormInit(data );
   });
   }
