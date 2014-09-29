@@ -71,7 +71,7 @@ var addHndl = function(element) {
                 $("#shemeApp").removeClass("hidden");
                 answerMethod(item.file, answerView);
                 drawGrafMethod(item.file, diagramView);
-                selectedDraw ($("#" + itemId)); 
+                selectedDraw ($("#" + itemId));
             });
         };
 return {
@@ -103,7 +103,6 @@ data = source;
 var answerView = $('#answerForm'); 
 var diagramView = "[id=diagram]";
 var theme =  "js/listOftheme.json";
-var answer = answerApp();
 var diagram = drawGraf;
 var answer = answerApp();
 answer.draw('#answerContainer');
@@ -112,7 +111,6 @@ pageController.load();
 
 themeController.setAnswerView(answerView);
 themeController.setDiagramView(diagramView);
-themeController.setAnswerMethod(answer.load);
 themeController.setAnswerMethod(answer.load);
 themeController.setDrawGrafMethod(drawGraf);
 themeController.setData(theme);

@@ -12,6 +12,48 @@ var answerApp = function() {
    var data;
    var targetID;
 
+    var view = {
+    answerShablon : '',
+    buttonShablon : '',
+    captionHTML : '',
+    buttonLeftHTML : '',
+    buttonRightHTML : '',
+    buttonCenterHTML : '',
+    buttonLeft : function (val) { domSetter("#leftButton" , val); },
+     buttonRight : function (val) { domSetter("#rightButton" , val); },
+      buttonCenter : function (val) { domSetter("#centerButton" , val); },
+       caption : function (val) { domSetter("#stageCaption" , val); },
+        stageNumber : function (val) { domSetter( "#stageNumber" , val); },
+         buttonLeftSetHndl : function (fn) { $("#leftButton").bind("click", fn(0)); },
+     buttonRightSetHndl : function (fn) { $("#rightButton").bind("click", fn(1)); },
+      buttonCenterSetHndl : function (fn) { 
+
+           $("#centerButton").bind("click", {index: 0}, function () {
+            alert('azaza');
+            fn(data.index);
+          }); 
+              alert(2);
+        }
+  };
+
+
+  function domSetter (elementId, val) {
+    alert(elementId+' '+ val)
+     if (val) {
+        $(elementId).empty();
+        $(elementId).append(val);
+       if ($(elementId).hasClass('hidden')) 
+        {  
+          $(elementId).removeClass('hidden'); 
+        }
+      } 
+      else {
+      if  (!$(elementId).hasClass('hidden')) {  
+          $(elementId).addClass('hidden'); 
+        }
+      }
+  }
+
    function buttonHTMLGenerator (shablon, replaceArr) {
     var result = '';
     result = shablon;
@@ -23,7 +65,7 @@ var answerApp = function() {
   }
    };
 
-   var answerShablon =              '<div class="panel panel-default" id="answerPanel">'+
+view.answerShablon =              '<div class="panel panel-default" id="answerPanel">'+
                         '<div class="panel-heading">'+
                           ' <button id="buttonBack" class="btn btn-default btn-sm">'+
                            '<span class="glyphicon glyphicon-chevron-left">'+
@@ -39,66 +81,126 @@ var answerApp = function() {
                         '</form>'+
                      '</div>';
 
-   var buttonShablon = '<div class="col-xs-4">'+
+  view.buttonShablon = '<div class="col-xs-4">'+
                       '<div  class="text-center">'+
                         '<button id="{{buttonId}}" type="submit" class="btn btn-primary btn-lg hidden">'+
                         '</button>'+
                       '</div>'+
                      '</div>';
    
-   var captionHTML = '<div class="col-xs-12">'+
+  view.captionHTML = '<div class="col-xs-12">'+
                           '<h4 class="text-center" id="stageCaption">'+
                          '</h4>'+
                         '</div>';
                         
-  var buttonLeftHTML =  buttonHTMLGenerator (buttonShablon, [['{{buttonId}}', 'leftButton']]);
-  var buttonRightHTML =  buttonHTMLGenerator (buttonShablon, [["{{buttonId}}", 'rightButton']]);
-  var buttonCenterHTML =  buttonHTMLGenerator (buttonShablon, [["{{buttonId}}", 'centerButton']]);
-  var elementsHTML = captionHTML + buttonLeftHTML + buttonCenterHTML + buttonRightHTML; 
+  view.buttonLeftHTML =  buttonHTMLGenerator (view.buttonShablon, [['{{buttonId}}', 'leftButton']]);
+  view.buttonRightHTML =  buttonHTMLGenerator (view.buttonShablon, [["{{buttonId}}", 'rightButton']]);
+  view.buttonCenterHTML =  buttonHTMLGenerator (view.buttonShablon, [["{{buttonId}}", 'centerButton']]);
+  view.elementsHTML = view.captionHTML + view.buttonLeftHTML + view.buttonCenterHTML + view.buttonRightHTML; 
 
-  function drawDOM () {
-  var answerHTML = answerShablon.replace('{{elements}}', elementsHTML);
+ view.drawDOM = function  (targetID) {
+  var answerHTML = view.answerShablon.replace('{{elements}}', view.elementsHTML);
   $(targetID).append(answerHTML);  
   }
 
-  function reDraw (element) {
-    formEmpty();
-
-
-  }
+  
 
   function Model () {
-   var centerButton = { visible: false, value: ''};
-   var leftButton = { visible: false, value: ''};
-   var rightButton = { visible: false, value: ''};
-   var stageIterator = { visible: false, value: ''};
-   var stageCaption = { visible: false, value: ''};
-   var node = 0;
-   var listers = [];
+   var self = this;
+   var firsVariant = { visible: false, value: '', lstr : []};
+   var secondVariant = { visible: false, value: '', lstr : []};
+   var trdVariant = { visible: false, value: '', lstr : []};
+   var stageNumber = { visible: false, value: '', lstr : []};
+   var stageText = { visible: false, value: '', lstr : []};
+   var node = '';
+   var curElement = 0;
     return {
-     nodeChange : function  (nodeNumber) { 
-        node = nodeNumber;
-        listers.forEach( function (lister) {
-          lister();
-        });
-      },
-    addLister: function (fn) {
-      lister.push(fn);
-      }
+     curElementSet : function ( element) { curElement = element; },
+     firsVariantSet : function ( val) { setter (firsVariant, val); },
+     secondVariantSet : function ( val) { setter (secondVariant, val); },
+     trdVariantSet : function ( val) { setter (trdVariant, val); },
+     stageNumberSet : function ( val) { setter (stageNumber, val); },
+     stageTextSet : function ( val) { setter (stageText, val); },
+     firsVariantAddLstr : function (  lstr) { firsVariant.lstr.push(lstr); },
+     secondVariantAddLstr : function (  lstr) { secondVariant.lstr.push(lstr); },
+     trdVariantAddLstr : function (  lstr) { trdVariant.lstr.push(lstr); },
+     stageNumberAddLstr : function (  lstr) { stageNumber.lstr.push(lstr); },
+     stageTextAddLstr : function (  lstr) { stageText.lstr.push(lstr); },
+     firsVariantGet : function ( ) { return firsVarian.value; },
+     secondVariantGet : function ( ) { return  secondVariant.value; },
+     trdVariantGet : function ( ) { return trdVariant.value; },
+     stageNumberGet : function ( ) { return stageNumber.value; },
+     stageTextGet : function ( ) { return  stageText.value; },
+     curElementGet : function ( ) { return curElement; },
+     init : function (element) {
+      this.curElementSet(element);
+          this.stageTextSet(element.name);
+    if (element.children[1] && element.children[0]) {
+         this.firsVariantSet(element.children[0].name);
+           this.trdVariantSet(element.children[1].name);
+    } else if (element.children[0] ) {
+        this.secondVariantSet(element.children[0].name);
+    }
+     },
+
+     update : function ( index ) {
+      alert('update called');
+   var curElemChild = self.curElement.children[index];
+    var newCurElem = curElemChild.children[0];
+    this.curElementSet(newCurElem);
+    var element = this.curElementGet();
+      this.stageTextSet(element.name);
+    if (element.children[1] && element.children[0]) {
+           this.firsVariantSet(element.children[0].name);
+             this.trdVariantSet(element.children[1].name);
+             this.secondVariantSet('');
+    } else if (element.children[0] ) {
+          this.secondVariantSet(element.children[0].name);
     }
   }
+   }
+  }
+  
+ 
+
+  function setter  (element, val) {
+    alert('setter called');
+        if (val){
+        element.visible = true;
+        element.value = val;
+      } 
+      else  {
+         element.visible = false;
+        element.value = '';
+      }
+       element.lstr.forEach( function (fn) {      
+          fn(val); 
+            alert('lstr callen: ' +fn+ 'val='+val);
+        });
+     };
+
+var    model = Model ();
 
   function controller  (model, view) {
-    model.addLister(view.reDraw);
+    model.stageTextAddLstr(view.caption);
+    model.firsVariantAddLstr(view.buttonLeft);
+    model.secondVariantAddLstr(view.buttonCenter);
+    model.trdVariantAddLstr(view.buttonRight);
+    model.stageNumberAddLstr(view.stageNumber);
+    view.buttonCenterSetHndl(model.update);
   }
 
+  
+ controller(model, view);
 
 
+/*
    function updateModel(element, stageIterator, arrAnswer) {
     stageIterator += 1;
-    /** @type {Array} */
+ 
     var stage = [];
-    stage.caption = element.name;
+   stage.caption = element.name;
+  
     stage.tooltip = element.tooltip;
     formEmpty();
     $("#stageNumber").append(stageIterator);
@@ -106,7 +208,7 @@ var answerApp = function() {
     $("#centerButton").addClass("hidden");
     $("#leftButton").addClass("hidden");
     $("#rightButton").addClass("hidden");
-    $("#stageCaption").append(stage.caption);
+   $("#stageCaption").append(stage.caption);
     $("#tooltip").append(stage.tooltip);
     $("#buttonBack").bind("click", function() {
       buttonBack(arrAnswer[1]);
@@ -115,9 +217,9 @@ var answerApp = function() {
       element.children.forEach(addButton);
     }
   }
+  */
   /**
-   * @return {undefined}
-   */
+
   function formEmpty() {
   //  $('answerForm').find( "button" ).empty();
     $("#stageCaption").empty();
@@ -134,6 +236,8 @@ var answerApp = function() {
    * @param {number} stageIterator
    * @return {undefined}
    */
+ 
+/*
   function buttonBack(element, stageIterator) {
     updateModel(element, stageIterator);
   }
@@ -141,16 +245,19 @@ var answerApp = function() {
    * @param {Array} arrAnswer
    * @return {undefined}
    */
+ 
+/*
+
   function answerFormInit(arrAnswer) {
-    /** @type {number} */
+
     var stageIterator = 1;
     formEmpty();
     if (arrAnswer[0].typeOf === "Stage-Start") {
-      /** @type {Array} */
+  
       var stage = [];
       stage.caption = arrAnswer[0].name;
       stage.tooltip = arrAnswer[0].tooltip;
-      /** @type {string} */
+  
       stage.buttonCaption = "\u041d\u0430\u0447\u0430\u0442\u044c";
       $("#tooltip").empty();
       $("#tooltip").append(stage.tooltip);
@@ -167,26 +274,30 @@ var answerApp = function() {
       }
     }
   }
+
+  */
   /**
    * @param {Object} element
    * @param {number} stageIterator
    * @return {undefined}
    */
+  
+  /**
   function addButton(element, stageIterator) {
     var elementType = element.typeOf;
     var id;
     if (btnTypeArr.indexOf(elementType) !== -1) {
       switch(elementType) {
         case "Answer-Yes":
-          /** @type {string} */
+
           id = "#leftButton";
           break;
         case "Answer-No":
-          /** @type {string} */
+       
           id = "#rightButton";
           break;
         case "Answer-Next":
-          /** @type {string} */
+        
           id = "#centerButton";
           break;
         default:
@@ -203,18 +314,23 @@ var answerApp = function() {
       });
     }
   }
+
+  */
   /** @type {Array} */
-  var btnTypeArr = ["Answer-Yes", "Answer-No", "Answer-Next"];
+ //var btnTypeArr = ["Answer-Yes", "Answer-No", "Answer-Next"];
  
+
    return {
   draw: function(whereDraw) {
-    targetID = whereDraw;
-    drawDOM();
+   view.drawDOM( whereDraw);
+
   }, 
   load: function (source, targetView) {
-    data = source;   
+    data = source;    
     $.getJSON(data, function( data ) {
-    answerFormInit(data );
+   // answerFormInit(data );
+  model.init(data[0]);
+  // model.update(0);
   });
   }
 }
