@@ -3,6 +3,7 @@
  * @return {undefined}
  */
 var answerApp = function() {
+ "use strict";
   /**
    * @param {Object} element
    * @param {number} stageIterator
@@ -24,21 +25,25 @@ var answerApp = function() {
       buttonCenter : function (val) { domSetter("#centerButton" , val); },
        caption : function (val) { domSetter("#stageCaption" , val); },
         stageNumber : function (val) { domSetter( "#stageNumber" , val); },
-         buttonLeftSetHndl : function (fn) { $("#leftButton").bind("click", fn(0)); },
-     buttonRightSetHndl : function (fn) { $("#rightButton").bind("click", fn(1)); },
-      buttonCenterSetHndl : function (fn) { 
-
-           $("#centerButton").bind("click", {index: 0}, function () {
-            alert('azaza');
-            fn(data.index);
+         buttonLeftSetHndl : function (fn, context, arg) { 
+           $("#leftButton").bind("click", {index: arg}, function () {        
+          fn.call(context, arg);
           }); 
-              alert(2);
+        },
+     buttonRightSetHndl : function (fn, context, arg) { 
+           $("#rightButton").bind("click", {index: arg}, function () {        
+          fn.call(context, arg);
+          }); 
+        },
+      buttonCenterSetHndl : function (fn, context, arg) { 
+           $("#centerButton").bind("click", {index: arg}, function () {        
+          fn.call(context, arg);
+          }); 
         }
   };
 
 
   function domSetter (elementId, val) {
-    alert(elementId+' '+ val)
      if (val) {
         $(elementId).empty();
         $(elementId).append(val);
@@ -144,12 +149,14 @@ view.answerShablon =              '<div class="panel panel-default" id="answerPa
      },
 
      update : function ( index ) {
-      alert('update called');
-   var curElemChild = self.curElement.children[index];
+      
+    if (curElement.children)   {
+   var curElemChild = curElement.children[index];
     var newCurElem = curElemChild.children[0];
     this.curElementSet(newCurElem);
     var element = this.curElementGet();
       this.stageTextSet(element.name);
+    if (curElement.children) {
     if (element.children[1] && element.children[0]) {
            this.firsVariantSet(element.children[0].name);
              this.trdVariantSet(element.children[1].name);
@@ -158,13 +165,19 @@ view.answerShablon =              '<div class="panel panel-default" id="answerPa
           this.secondVariantSet(element.children[0].name);
     }
   }
+  else {
+    this.firsVariantSet('');
+    this.secondVariantSet('');
+    this.trdVariantSet('');
+  }
+}
+  }
    }
   }
   
  
 
   function setter  (element, val) {
-    alert('setter called');
         if (val){
         element.visible = true;
         element.value = val;
@@ -175,7 +188,6 @@ view.answerShablon =              '<div class="panel panel-default" id="answerPa
       }
        element.lstr.forEach( function (fn) {      
           fn(val); 
-            alert('lstr callen: ' +fn+ 'val='+val);
         });
      };
 
@@ -187,11 +199,13 @@ var    model = Model ();
     model.secondVariantAddLstr(view.buttonCenter);
     model.trdVariantAddLstr(view.buttonRight);
     model.stageNumberAddLstr(view.stageNumber);
-    view.buttonCenterSetHndl(model.update);
+    view.buttonCenterSetHndl(model.update, model, 0);
+    view.buttonRightSetHndl(model.update, model, 1);
+    view.buttonLeftSetHndl(model.update, model, 0);
   }
 
   
- controller(model, view);
+
 
 
 /*
@@ -329,7 +343,9 @@ var    model = Model ();
     data = source;    
     $.getJSON(data, function( data ) {
    // answerFormInit(data );
+    controller(model, view);
   model.init(data[0]);
+
   // model.update(0);
   });
   }
