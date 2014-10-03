@@ -189,8 +189,11 @@ var answerApp = function() {
        * @return {undefined}
        */
       init : function(element) {
+        var tmpArr = [];
         this.curElementSet(element);
-        history.push(curElement);
+         tmpArr.push(curElement);
+          tmpArr.push(0);
+          history.push(tmpArr);
         this.stageTextSet(element.name);
         if (element.children[1] && element.children[0]) {
           this.firsVariantSet(element.children[0].name);
@@ -206,36 +209,60 @@ var answerApp = function() {
        * @return {undefined}
        */
       update : function(index) {
+       var tmpArr = [];
         if (curElement.children && (index===0||index===1)) {
-          history.push(curElement);
+          //alert(JSON.stringify(curElement)+' called in update '+index);
+          tmpArr.push(curElement);
+          tmpArr.push(index);
+          history.push(tmpArr);
+         // alert('history added');
           var curElemChild = curElement.children[index];
           var newCurElem = curElemChild.children[0];
           this.curElementSet(newCurElem);
           var element = this.curElementGet();
           this.stageTextSet(element.name);
+          //alert(JSON.stringify(element)+' new elem in update, becose index = '+index);
+//alert('caption drowe');
           if (curElement.children) {
             if (element.children[1] && element.children[0]) {
               this.firsVariantSet(element.children[0].name);
               this.trdVariantSet(element.children[1].name);
               this.secondVariantSet("");
+              // alert('children=2');
             } else {
               if (element.children[0]) {
+                this.firsVariantSet("");
                 this.secondVariantSet(element.children[0].name);
+                this.trdVariantSet("");
+               //  alert('children=1');
               }
             }
+            // alert('children drow');
           } else {
             this.firsVariantSet("");
             this.secondVariantSet("");
             this.trdVariantSet("");
+           //  alert('children drow as null');
           }
         }
       },
       back : function () {
-        if (history.length>1){
-        curElement = history.pop();
-        curElement = history.pop();
-        };
-        this.update(0);
+        var curStage='';
+
+         if (history.length ===0) {
+          this.init(curElement);
+         }
+        if (history.length>0){
+
+          curStage = history.pop();
+          if (history.length>1) {
+          curStage = history.pop();
+          }
+          curElement = curStage[0];
+          index = curStage[1];
+  //     alert('back called '+JSON.stringify(curElement)+' +  '+index);
+           this.update(index);
+        };      
       }
     };
   }

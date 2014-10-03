@@ -39,7 +39,25 @@
                         "parent": "нет",
                         "figure": "rect",
                         "typeOf": "Stage-End",
+                        "tooltip": "Ппц",
+                            "children": [
+                      {
+                        "name": "ок",
+                        "parent": "нет",
+                        "figure": "line",
+                        "typeOf": "Answer-Next",
+                        "tooltip": "Ппц",
+                            "children": [
+                      {
+                        "name": "ммм",
+                        "parent": "нет",
+                        "figure": "rect",
+                        "typeOf": "Stage-End",
                         "tooltip": "Ппц"
+                      }
+                    ]
+                      }
+                    ]
                       }
                     ]
                   }
