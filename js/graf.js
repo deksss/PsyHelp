@@ -32,6 +32,7 @@ function drawGraf( data, targetView ) {
         update(root);
     });
 
+
     function update(source) {
 
         // Compute the new tree layout.
@@ -61,21 +62,23 @@ function drawGraf( data, targetView ) {
                 return d.figure == "rhomb"
             })
             .append("rect")
-            .attr("width", 20)
-            .attr("height", 20)
+            .attr("width", 40)
+            .attr("height", 40)
             .attr("rx", 1)
             .attr("ry", 1)
-            .attr("transform", "rotate(45)");
+            .attr("transform", "translate(" + (-100) + ", 0)")
+            .attr("transform", "rotate(45)")  
+            ;
 
         var rect = nodeEnter.filter(function(d) {
                 return d.figure == "rect"
             })
             .append("rect")
-            .attr("width", 20)
-            .attr("height", 20)
+            .attr("width", 40)
+            .attr("height", 40)
             .attr("rx", 1)
             .attr("ry", 1)
-            .attr("transform", "translate(" + (-10) + ",0)")
+            .attr("transform", "translate(" + (-20) + ", 0)")
             ;
 
         var rect = nodeEnter.filter(function(d) {
