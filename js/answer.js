@@ -189,18 +189,17 @@ var answerApp = function() {
        * @return {undefined}
        */
       init : function(element) {
-        var tmpArr = [];
         this.curElementSet(element);
-         tmpArr.push(curElement);
-          tmpArr.push(0);
-          history.push(tmpArr);
         this.stageTextSet(element.name);
         if (element.children[1] && element.children[0]) {
           this.firsVariantSet(element.children[0].name);
           this.trdVariantSet(element.children[1].name);
+          this.secondVariantSet('');
         } else {
           if (element.children[0]) {
             this.secondVariantSet(element.children[0].name);
+              this.firsVariantSet('');
+                this.trdVariantSet('');
           }
         }
       },
@@ -209,12 +208,12 @@ var answerApp = function() {
        * @return {undefined}
        */
       update : function(index) {
-       var tmpArr = [];
         if (curElement.children && (index===0||index===1)) {
           //alert(JSON.stringify(curElement)+' called in update '+index);
-          tmpArr.push(curElement);
-          tmpArr.push(index);
-          history.push(tmpArr);
+          var tmp = {};
+        tmp.element = curElement;
+        tmp.index = index;
+          history.push(tmp);
          // alert('history added');
           var curElemChild = curElement.children[index];
           var newCurElem = curElemChild.children[0];
@@ -246,23 +245,19 @@ var answerApp = function() {
           }
         }
       },
-      back : function () {
-        var curStage='';
-
-         if (history.length ===0) {
-          this.init(curElement);
-         }
-        if (history.length>0){
-
-          curStage = history.pop();
-          if (history.length>1) {
-          curStage = history.pop();
-          }
-          curElement = curStage[0];
-          index = curStage[1];
-  //     alert('back called '+JSON.stringify(curElement)+' +  '+index);
-           this.update(index);
-        };      
+      back : function () {       
+      var elemForHistory = history.pop();
+      if ( history.length > 0) {
+              var elemForHistory = history.pop();
+    // alert(history.length+elemForHistory.element+ ' _________________'+elemForHistory.index);
+      curElement = elemForHistory.element;
+      this.update(elemForHistory.index); }
+      else {
+        curElement = elemForHistory.element;
+        this.init(curElement);
+        alert('mm');
+       
+      }      
       }
     };
   }
