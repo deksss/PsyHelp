@@ -66,7 +66,6 @@ function drawGraf( data, targetView ) {
             .attr("height", 40)
             .attr("rx", 1)
             .attr("ry", 1)
-            .attr("transform", "translate(" + (-100) + ", 0)")
             .attr("transform", "rotate(45)")  
             ;
 

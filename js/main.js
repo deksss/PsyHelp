@@ -119,7 +119,8 @@ themeController.load();
 
 
 $('.minimize').bind("click", function(e) {
-    var target = $(this).parent().first().next();
+    var target = $(this).parent();
+    target = target.find('div, ul');
     if(!target.hasClass('hidden')) {
     target.addClass('hidden');
 } else {

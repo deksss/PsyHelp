@@ -28,7 +28,7 @@ text-shadow: white 1px 0px, white 1px 1px, white 0px 1px, white -1px 1px, white 
  background: url("../images/giftly.png") repeat;
 } 
 
-#main {
+#main, #help, #about {
 background-color: #fff;
 margin-top: -20px; /* negative indent the amount of the padding to maintain the grid system */
 -webkit-border-radius: 0 0 6px 6px;

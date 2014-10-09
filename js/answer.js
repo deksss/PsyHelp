@@ -126,6 +126,7 @@ var answerApp = function() {
         return curObj;
       },
       init : function(element) {
+       if (element) {
         this.firsVariantSet("");
         this.secondVariantSet("");
         this.trdVariantSet("");
@@ -140,6 +141,7 @@ var answerApp = function() {
             this.secondVariantSet(element.children[0].name);
           }
         }
+      }
       },
       update : function(index) {
         if (curObj.children && (index === 0 || index === 1)) {
@@ -173,6 +175,7 @@ var answerApp = function() {
         }
       },
       back : function() {
+         if (history.length) {
         var elemForHistory = history.pop();
         if (history.length > 0) {
           elemForHistory = history.pop();
@@ -182,6 +185,7 @@ var answerApp = function() {
           curObj = elemForHistory.element;
           this.init(curObj);
         }
+      }
       }
     };
   }
@@ -221,6 +225,7 @@ var answerApp = function() {
     },
     tooltip : function(val) {
       showCustom("#tooltip", val);
+      showCustom("#tooltipMd", val);
     },
     stageNumber : function(val) {
       showCustom("#stageNumber", val);
