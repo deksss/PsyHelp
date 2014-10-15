@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+      <title>PsyHelp Editor</title>
+      <meta name="keywords" content="" />
+      <meta name="description" content="" />
+      <link rel="stylesheet" type="../text/css" href="css/bootstrap.min.css">
+      <link href="editor.css" rel="stylesheet">
+      <link href="../css/color-sheme-bootstrap.css" rel="stylesheet">
+      <script src="http://code.jquery.com/jquery.min.js"></script>
+      <script src="../js/bootstrap.min.js"></script>
+      <script src="editor.js"></script>
+   </head>
+   <body>
+      <div id="tree">
+      </div>
+      <form role="form">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" class="form-control" id="name">
+  </div>
+  <div class="form-group">
+    <label for="figure">Type:</label>
+    <select class="form-control">
+    <option value="one">Varints</option>
+    <option value="two">varian</option>
+    <option value="three">action</option>
+</select>
+  </div>
+  <div class="form-group">
+    <label for="tooltip">Tooltip:</label>
+    <input type="text" class="form-control" id="tooltip">
+  </div>
+  <button id="add" type="button" class="btn btn-default">+</button>
+</form>
+<div id="target">
+  <div class="children">
+  </div>
+</div>
+    </body>
+</html>  
