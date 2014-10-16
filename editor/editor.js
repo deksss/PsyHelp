@@ -18,12 +18,14 @@ $(document).ready(function() {
   						        '<p>{{tooltip}}<p>'+
   						        '<p>{{type}}<p>'+
                       '<button type="button" class="btn btn-default addChildren">+</button>'+
-                      '<div class="children">'
-                      '</div>'
+                      '<div class="children">'+
+                      '</div>'+
 					          '<div>';
+
 
   function drawElement(element, target) {
   	var newHTML = shablonHTML;
+    var that = this;
     id++;
     var curID = id;
     newHTML =  newHTML.replace('{{id}}', curID);
@@ -31,36 +33,34 @@ $(document).ready(function() {
   	newHTML =  newHTML.replace('{{tooltip}}', element.tooltip);
   	newHTML =  newHTML.replace('{{type}}', element.type);
     target.append(newHTML);
-    $('.btn btn-default addChildren').bind("click", function(e) {
-      alert(1);
+    $('#'+curID).find('.btn').bind("click", function(e) {
     var target =  $(this).parent().find('.children');
     addElement(target);
   });
+
   }
 
   function addElement(target) {
   	var newElement = shablon;
-  	newElement.name = $('#name').value;
-  	newElement.type = $('#type').type
-  	newElement.tooltip = $('#tooltip').value;
+    alert($('#type option:selected').text());
+  	newElement.name = $('#name').val();
+  	newElement.type = $('#type option:selected').text();
+  	newElement.tooltip = $('#tooltip').val();
     if (curElem.children){
       curElem.children.push(newElement);
     } else {
       curElem = newElement;
     }
   	drawElement(newElement, target);
+    alert('ok');
   }
 
   function textAreaFilling() {
   }
 
   $('#add').bind("click", function(e) {
-$('#target');
     var target = $('#target').find('.children');
     addElement(target);
   });
-
-
-
 
 	});
