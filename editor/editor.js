@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  var tree = [{}];
+  var tree = [];
   var curElem = tree[0];
   var id = 0;
 
@@ -9,57 +9,61 @@ $(document).ready(function() {
     parent: '',
     figure: '',
     tooltip: '',
+    id: '',
+    parentId: '',
     children: []
   };
 
 
-  var shablonHTML = '<div id="{{id}}" class="col-sm-4">'+
+  var shablonHTML = '<div id="{{id}}"  class="inline">'+
   						        '<p>{{name}}<p>'+
   						        '<p>{{tooltip}}<p>'+
   						        '<p>{{type}}<p>'+
                       '<button type="button" class="btn btn-default addChildren">+</button>'+
-                      '<div class="children">'+
+                      '<div class="children row-fluid"">'+
                       '</div>'+
 					          '<div>';
 
 
   function drawElement(element, target) {
-  	var newHTML = shablonHTML;
+  	target.css('border','1px solid red');
+    var newHTML = shablonHTML;
     var that = this;
-    id++;
     var curID = id;
     newHTML =  newHTML.replace('{{id}}', curID);
   	newHTML =  newHTML.replace('{{name}}', element.name);
   	newHTML =  newHTML.replace('{{tooltip}}', element.tooltip);
   	newHTML =  newHTML.replace('{{type}}', element.type);
     target.append(newHTML);
-    $('#'+curID).find('.btn').bind("click", function(e) {
-    var target =  $(this).parent().find('.children');
-    addElement(target);
+
+    $('#'+curID+' .btn').bind("click", function(e) {
+    var neWtarget =  $('#'+curID+' .children');
+    var parrentId = curID;
+    alert (curID);
+    addElement(neWtarget, parrentId);
   });
 
   }
 
-  function addElement(target) {
+
+
+  function addElement(target, parrentId) {
   	var newElement = shablon;
-    alert($('#type option:selected').text());
+    id++;
+    newElement.id = id;
+    newElement.parrentId = id;
   	newElement.name = $('#name').val();
-  	newElement.type = $('#type option:selected').text();
+  	newElement.type = $('#figure option:selected').val();
   	newElement.tooltip = $('#tooltip').val();
-    if (curElem.children){
-      curElem.children.push(newElement);
-    } else {
-      curElem = newElement;
-    }
+    tree.push(newElement);
   	drawElement(newElement, target);
-    alert('ok');
   }
 
   function textAreaFilling() {
   }
 
   $('#add').bind("click", function(e) {
-    var target = $('#target').find('.children');
+    var target = $('#target');
     addElement(target);
   });
 
