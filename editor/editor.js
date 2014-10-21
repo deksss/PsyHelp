@@ -15,18 +15,18 @@ $(document).ready(function() {
   };
 
 
-  var shablonHTML = '<div id="{{id}}"  class="inline">'+
+  var shablonHTML = '<div id="{{id}}" class="inline">'+
   						        '<p>{{name}}<p>'+
   						        '<p>{{tooltip}}<p>'+
   						        '<p>{{type}}<p>'+
                       '<button type="button" class="btn btn-default addChildren">+</button>'+
-                      '<div class="children row-fluid"">'+
-                      '</div>'+
-					          '<div>';
+					          '</div>'
+                    ;
 
 
   function drawElement(element, target) {
   	target.css('border','1px solid red');
+  target.attr('id');
     var newHTML = shablonHTML;
     var that = this;
     var curID = id;
@@ -35,16 +35,13 @@ $(document).ready(function() {
   	newHTML =  newHTML.replace('{{tooltip}}', element.tooltip);
   	newHTML =  newHTML.replace('{{type}}', element.type);
     target.append(newHTML);
-
     $('#'+curID+' .btn').bind("click", function(e) {
-    var neWtarget =  $('#'+curID+' .children');
+    var neWtarget =  $('#'+curID);
     var parrentId = curID;
-    alert (curID);
     addElement(neWtarget, parrentId);
   });
 
   }
-
 
 
   function addElement(target, parrentId) {
@@ -55,8 +52,8 @@ $(document).ready(function() {
   	newElement.name = $('#name').val();
   	newElement.type = $('#figure option:selected').val();
   	newElement.tooltip = $('#tooltip').val();
-    tree.push(newElement);
   	drawElement(newElement, target);
+    tree.push(newElement);
   }
 
   function textAreaFilling() {
@@ -66,5 +63,24 @@ $(document).ready(function() {
     var target = $('#target');
     addElement(target);
   });
+
+    $('#generate').bind("click", function(e) {
+    var resultTree = [];
+    resultTree.push(tree.shift());
+
+  });
+
+function convertArr(arrDonor, result, cur) {
+  if (arrDonor[0]) {
+    arrDonor.forEach ( function (item, index) {
+      if item.parrentId = curID {
+        result.children = [];
+        result.children.push(arrDonor.slice(index,1));
+
+          convertArr(arrDonor, result, item.id);
+      }
+    })
+  }
+}
 
 	});

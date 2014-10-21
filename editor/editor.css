@@ -1,0 +1,5 @@
+div { display:block; /* Pre-existing code */ }
+div.inline {
+    display:inline;
+    background-color: white;
+}
