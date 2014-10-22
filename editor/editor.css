@@ -1,5 +1,17 @@
-div { display:block; /* Pre-existing code */ }
-div.inline {
+div { 
+	display:block; 
+}
+
+div.col-sm-4 {
     display:inline;
     background-color: white;
+    border: 1px solid green;
 }
+
+div.col-sm-12 {
+    display:inline;
+    background-color: white;
+    border: 1px solid green;
+}
+
+

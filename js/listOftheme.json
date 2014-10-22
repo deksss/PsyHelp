@@ -1,6 +1,11 @@
 {
   "list": [
     {
+     "name": "test",
+      "file": "test.json",
+      "img": "images/img1.png" 
+    },
+    {
       "name": "Депрессия",
       "file": "treeData.json",
       "img": "images/img1.png"

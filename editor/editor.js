@@ -12,53 +12,62 @@ var tree = [];
     children: []
   };
 
-
-  var shablonHTML = '<div id="{{id}}" class="inline">'+
+  var shablonHTML = '<div id="{{id}}" class="col-sm-{{col}}">'+
+                      '<button type="button" class="btn btn-default delete">delete</button>'+
   						        '<p>{{name}}<p>'+
   						        '<p>{{tooltip}}<p>'+
-  						        '<p>{{type}}<p>'+
                       '<button type="button" class="btn btn-default addChildren">+</button>'+
 					          '</div>'
                     ;
 
-
-
-
   function seraschAndAdd(arr, id, element) {
-    //alert(JSON.stringify(element));
-   // alert(id);
-   // alert(arr.stringify+' arr');
     if (id === 'null') {
       arr.push(cloneObj(element));
-//alert("zapushili nul")
     } else {
     arr.forEach (function (item, index) 
     {
-     // alert("item:"+item.id +' parid'+ id);
       if (item.id === id) {
-       // alert("we in space")
         arr[index].children.push(cloneObj(element));
-       // alert("we done push");
       } else if (item.children.length!==0) {
         seraschAndAdd(arr[index].children, id, cloneObj(element));
-      //  alert("we done recurs");
       }
     }) 
   }
          return arr;
   };
-var cloneObj = function( obj ){ return $.extend(true, {}, obj); }
+
+
+    function seraschAndDelete(arr, id) {
+    if (id === 'null') {
+      arr=[];
+    } else {
+    arr.forEach (function (item, index) 
+    {
+      if (item.id === id) {
+        arr.splice (index, 1);
+      } else if (item.children.length!==0) {
+        seraschAndDelete(arr[index].children, id);
+      }
+    }) 
+  }
+         return arr;
+  };
+
+
+
+var cloneObj = function( obj ) { 
+  return $.extend(true, {}, obj); 
+};
+
   function addElement(target, parrentId) {
   	var newElement = shablon;
     id++;
     newElement.id = id;
     newElement.parrentId = parrentId;
   	newElement.name = $('#name').val();
-  	newElement.type = $('#figure option:selected').val();
+  	newElement.figure = $('#figure option:selected').val();
   	newElement.tooltip = $('#tooltip').val();
     tree = seraschAndAdd(tree, parrentId, newElement);
-   
-  // superPush( tree,  cloneObj(newElement));
   	drawElement(newElement, target);
     }
 
@@ -82,8 +91,6 @@ var cloneObj = function( obj ){ return $.extend(true, {}, obj); }
   });
 
       function drawElement(element, target) {
-    target.css('border','1px solid red');
-    target.attr('id');
     var newHTML = shablonHTML;
     var that = this;
     var curID = id;
@@ -91,12 +98,22 @@ var cloneObj = function( obj ){ return $.extend(true, {}, obj); }
     newHTML =  newHTML.replace('{{id}}', curID);
     newHTML =  newHTML.replace('{{name}}', element.name);
     newHTML =  newHTML.replace('{{tooltip}}', element.tooltip);
-    newHTML =  newHTML.replace('{{type}}', element.type);
+    //newHTML =  newHTML.replace('{{type}}', element.type);
+    if (element.figure === "rhomb" || element.figure === "rect"){
+    newHTML =  newHTML.replace('{{col}}', 12); 
+   } else {
+    newHTML =  newHTML.replace('{{col}}', 4);
+  }
     target.append(newHTML);
     $('#'+curID+' .btn').bind("click", function(e) {
     var neWtarget =  $('#'+curID);
     var parrentId = curID;
     addElement(neWtarget, parrentId);
+  });
+
+    $('#'+curID+' .delete').bind("click", function(e) {
+     tree =  seraschAndDelete(tree, curID);
+     $('#'+curID).empty();
   });
 
   }
