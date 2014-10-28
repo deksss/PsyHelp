@@ -1,22 +1,23 @@
 $(document).ready(function() {
 
 var tree = [];
-
+var yes = 'да';
+var no = 'нет';
+var next = 'продолжить';
   var id = 0;
-
   var shablon = {
   	name: '',
     tooltip: '',
     id: '',
-    parentId: '',
     children: []
   };
-
   var shablonHTML = '<div id="{{id}}" class="col-sm-{{col}}">'+
                       '<button type="button" class="btn btn-default delete">delete</button>'+
   						        '<p>{{name}}<p>'+
   						        '<p>{{tooltip}}<p>'+
-                      '<button type="button" class="btn btn-default addChildren">+</button>'+
+                      '<button type="button" class="btn btn-default yes">+да</button>'+
+                      '<button type="button" class="btn btn-default no">+нет</button>'+
+                      '<button type="button" class="btn btn-default next">+дальше</button>'+
 					          '</div>'
                     ;
 
@@ -59,23 +60,39 @@ var cloneObj = function( obj ) {
   return $.extend(true, {}, obj); 
 };
 
-  function addElement(target, parrentId) {
+
+  function addElement(target, parrentId, type) {
   	var newElement = shablon;
     id++;
     newElement.id = id;
     newElement.parrentId = parrentId;
+    newElement.figure = 'line';
+    newElement.tooltip = '';
+    if (type === 'yes') {
+    newElement.name = yes;
+        tree = seraschAndAdd(tree, parrentId, newElement);
+    addElement( $('#'+parrentId), newElement.id, 'custom');
+    
+    };
+    if (type === 'no') {
+    newElement.name = no;
+            tree = seraschAndAdd(tree, parrentId, newElement);
+    addElement( $('#'+parrentId), id, 'custom');
+
+    };
+    if (type === 'next') {
+    newElement.name = next;
+            tree = seraschAndAdd(tree, parrentId, newElement);
+    addElement( $('#'+parrentId), id, 'custom');
+   console.log('next dome');
+    };
+    if (type === 'custom') {
   	newElement.name = $('#name').val();
   	newElement.figure = $('#figure option:selected').val();
   	newElement.tooltip = $('#tooltip').val();
+    drawElement(newElement, target, 'custom');
     tree = seraschAndAdd(tree, parrentId, newElement);
-  	drawElement(newElement, target);
     }
-
-    //push wraper from more control
-    function superPush(arr, element) {
-      console.log(arr);
-      console.log(JSON.stringify(element));
-      arr.push(element);
     }
 
   function textAreaFilling() {
@@ -83,39 +100,61 @@ var cloneObj = function( obj ) {
 
   $('#add').bind("click", function(e) {
     var target = $('#target');
-    addElement(target, 'null');
+    addElement(target, 'null', 'custom');
   });
 
     $('#generate').bind("click", function(e) {    
       console.log(JSON.stringify(tree));
   });
 
-      function drawElement(element, target) {
+    function drawElement(element, target, type) {
+    console.log(JSON.stringify(element) + JSON.stringify(target) + type);
     var newHTML = shablonHTML;
     var that = this;
     var curID = id;
-  //  alert(curID + ' '+element.id );
+    var name='';
+    if (type === 'yes') {
+     name = yes + ': '; 
+    }
+    if (type === 'no') {
+     name = no + ': '; 
+    }
+    if (type === 'next') {
+     name = next+ ': '; 
+    }
     newHTML =  newHTML.replace('{{id}}', curID);
-    newHTML =  newHTML.replace('{{name}}', element.name);
+    newHTML =  newHTML.replace('{{name}}', name + element.name);
     newHTML =  newHTML.replace('{{tooltip}}', element.tooltip);
-    //newHTML =  newHTML.replace('{{type}}', element.type);
     if (element.figure === "rhomb" || element.figure === "rect"){
     newHTML =  newHTML.replace('{{col}}', 12); 
    } else {
     newHTML =  newHTML.replace('{{col}}', 4);
   }
+
     target.append(newHTML);
-    $('#'+curID+' .btn').bind("click", function(e) {
-    var neWtarget =  $('#'+curID);
+
+    $('#'+curID+' .yes').bind("click", function(e) {
+    var neWtarget =  $('#'+(curID));
     var parrentId = curID;
-    addElement(neWtarget, parrentId);
+    addElement(neWtarget, parrentId, 'yes');
+  });
+
+    $('#'+curID+' .no').bind("click", function(e) {
+    var neWtarget =  $('#'+(curID));
+    var parrentId = curID;
+    addElement(neWtarget, parrentId, 'no');
+  });
+
+    $('#'+curID+' .next').bind("click", function(e) {
+    var neWtarget =  $('#'+(curID));
+    var parrentId = curID;
+    addElement(neWtarget, parrentId, 'next');
   });
 
     $('#'+curID+' .delete').bind("click", function(e) {
      tree =  seraschAndDelete(tree, curID);
      $('#'+curID).empty();
   });
-
   }
 
 
