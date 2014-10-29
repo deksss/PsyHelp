@@ -61,7 +61,7 @@ var cloneObj = function( obj ) {
 };
 
 
-  function addElement(target, parrentId, type) {
+  function addElement(target, parrentId, type, pref) {
   	var newElement = shablon;
     id++;
     newElement.id = id;
@@ -69,29 +69,29 @@ var cloneObj = function( obj ) {
     newElement.figure = 'line';
     newElement.tooltip = '';
     if (type === 'yes') {
-    newElement.name = yes;
-        tree = seraschAndAdd(tree, parrentId, newElement);
-    addElement( $('#'+parrentId), newElement.id, 'custom');
+      newElement.name = yes;
+      tree = seraschAndAdd(tree, parrentId, newElement);
+      addElement( $('#'+parrentId), newElement.id, 'custom', 'yes');
     
     };
     if (type === 'no') {
-    newElement.name = no;
-            tree = seraschAndAdd(tree, parrentId, newElement);
-    addElement( $('#'+parrentId), id, 'custom');
+      newElement.name = no;
+      tree = seraschAndAdd(tree, parrentId, newElement);
+      addElement( $('#'+parrentId), id, 'custom', 'no');
 
     };
     if (type === 'next') {
-    newElement.name = next;
-            tree = seraschAndAdd(tree, parrentId, newElement);
-    addElement( $('#'+parrentId), id, 'custom');
-   console.log('next dome');
+      newElement.name = next;
+      tree = seraschAndAdd(tree, parrentId, newElement);
+      addElement( $('#'+parrentId), id, 'custom', 'next');
+      console.log('next dome');
     };
     if (type === 'custom') {
-  	newElement.name = $('#name').val();
-  	newElement.figure = $('#figure option:selected').val();
-  	newElement.tooltip = $('#tooltip').val();
-    drawElement(newElement, target, 'custom');
-    tree = seraschAndAdd(tree, parrentId, newElement);
+  	   newElement.name = $('#name').val();
+  	   newElement.figure = $('#figure option:selected').val();
+  	  newElement.tooltip = $('#tooltip').val();
+      drawElement(newElement, target, 'custom', pref);
+      tree = seraschAndAdd(tree, parrentId, newElement);
     }
     }
 
@@ -107,19 +107,19 @@ var cloneObj = function( obj ) {
       console.log(JSON.stringify(tree));
   });
 
-    function drawElement(element, target, type) {
+    function drawElement(element, target, type, pref) {
     console.log(JSON.stringify(element) + JSON.stringify(target) + type);
     var newHTML = shablonHTML;
     var that = this;
     var curID = id;
     var name='';
-    if (type === 'yes') {
+    if (pref === 'yes') {
      name = yes + ': '; 
     }
-    if (type === 'no') {
+    if (pref === 'no') {
      name = no + ': '; 
     }
-    if (type === 'next') {
+    if (pref === 'next') {
      name = next+ ': '; 
     }
     newHTML =  newHTML.replace('{{id}}', curID);

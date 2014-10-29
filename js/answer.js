@@ -1,4 +1,5 @@
 var answerApp = function() {
+  
   function showCustom(elementId, val) {
     if (val) {
       $(elementId).empty();
