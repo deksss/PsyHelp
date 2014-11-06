@@ -16,8 +16,9 @@
       <script src="editor.js"></script>
    </head>
    <body>
-      <div id="tree">
-      </div>
+<div id="target">
+</div>
+       <div class="jumbotron">
       <form role="form">
   <div class="form-group">
     <label for="name">Текст:</label>
@@ -34,12 +35,17 @@
     <label for="tooltip">Подсказка:</label>
     <input type="text" class="form-control" id="tooltip">
   </div>
-  <button id="add" type="button" class="btn btn-default">+</button>
+  <button id="add" type="button" class="btn btn-default">добавить начальный шаг</button>
    <button id="generate" type="button" class="btn btn-default">gen code</button>
+
+    <div id="result" class="form-group hidden">
+  <label for="resultText">Результат:</label>
+  <textarea class="form-control" rows="5" id="resultText"></textarea>
+</div>
    
 </form>
-</form>
-<div id="target">
 </div>
+</form>
+
     </body>
 </html>  

@@ -105,6 +105,8 @@ var cloneObj = function( obj ) {
 
     $('#generate').bind("click", function(e) {    
       console.log(JSON.stringify(tree));
+       $('#resultText').val(JSON.stringify(tree));
+       $('#result').removeClass("hidden");
   });
 
     function drawElement(element, target, type, pref) {
