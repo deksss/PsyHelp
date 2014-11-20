@@ -3,14 +3,17 @@ div {
 }
 
 div.col-sm-4 {
-    display:inline;
     background-color: white;
+    border: 1px solid red;
+}
+
+div.col-sm-6 {
+    background-color: grey;
     border: 1px solid green;
 }
 
 div.col-sm-12 {
-    display:inline;
-    background-color: white;
+    background-color: yellow;
     border: 1px solid green;
 }
 

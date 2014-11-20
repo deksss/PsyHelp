@@ -11,7 +11,7 @@ var next = 'продолжить';
     id: '',
     children: []
   };
-  var shablonHTML = '<div id="{{id}}" class="col-sm-{{col}}">'+
+  var questShablonHTML = '<div id="{{id}}" class="col-sm-{{col}}">'+
                       '<button type="button" class="btn btn-default delete">delete</button>'+
   						        '<p>{{name}}<p>'+
   						        '<p>{{tooltip}}<p>'+
@@ -20,6 +20,14 @@ var next = 'продолжить';
                       '<button type="button" class="btn btn-default next">+дальше</button>'+
 					          '</div>'
                     ;
+
+   var actionShablonHTML = '<div id="{{id}}" class="col-sm-{{col}}">'+
+                      '<button type="button" class="btn btn-default delete">delete</button>'+
+                      '<p>{{name}}<p>'+
+                      '<p>{{tooltip}}<p>'+
+                      '<button type="button" class="btn btn-default next">+дальше</button>'+
+                    '</div>'
+                    ;  
 
   function seraschAndAdd(arr, id, element) {
     if (id === 'null') {
@@ -52,6 +60,19 @@ var next = 'продолжить';
     }) 
   }
          return arr;
+  };
+
+var srchResult = '';
+ function seraschAndReturn(arr, id) {
+    arr.forEach (function (item, index) 
+    {
+      if (item.id === id) {
+        console.log('ok: '+ item.id);
+        srchResult = item;
+      } else if (item.children.length!==0) {
+        seraschAndReturn(arr[index].children, id);
+      }
+    }) ;
   };
 
 
@@ -103,18 +124,39 @@ var cloneObj = function( obj ) {
     addElement(target, 'null', 'custom');
   });
 
-    $('#generate').bind("click", function(e) {    
-      console.log(JSON.stringify(tree));
+function returTmp () {
+  var tmp;
+    seraschAndReturn(tree, 3); 
+    console.log(srchResult);
+    tmp = srchResult.children.length;
+  return tmp;
+}
+ 
+
+    $('#generate').bind("click", function(e) {   
        $('#resultText').val(JSON.stringify(tree));
        $('#result').removeClass("hidden");
   });
 
     function drawElement(element, target, type, pref) {
-    console.log(JSON.stringify(element) + JSON.stringify(target) + type);
-    var newHTML = shablonHTML;
+    if (element.figure === "rhomb") {
+      var newHTML = questShablonHTML;
+    } else {
+      var newHTML = actionShablonHTML;
+    }
+    var curID = id;    
     var that = this;
-    var curID = id;
     var name='';
+    if (curID < 3) {
+     var parrentChildCount = 0;      
+        } 
+        else {
+    seraschAndReturn(tree, element.parrentId); 
+    console.log(element.parrentId);
+    seraschAndReturn(tree, srchResult.parrentId); 
+     console.log(srchResult.parrentId);
+    var parrentChildCount =  srchResult.children.length; 
+    };
     if (pref === 'yes') {
      name = yes + ': '; 
     }
@@ -127,12 +169,19 @@ var cloneObj = function( obj ) {
     newHTML =  newHTML.replace('{{id}}', curID);
     newHTML =  newHTML.replace('{{name}}', name + element.name);
     newHTML =  newHTML.replace('{{tooltip}}', element.tooltip);
-    if (element.figure === "rhomb" || element.figure === "rect"){
-    newHTML =  newHTML.replace('{{col}}', 12); 
-   } else {
-    newHTML =  newHTML.replace('{{col}}', 4);
-  }
 
+    if (parrentChildCount === 2) {
+    newHTML =  newHTML.replace('{{col}}', 4); 
+    };
+
+       if (parrentChildCount === 1) {
+    newHTML =  newHTML.replace('{{col}}', 6); 
+    };
+
+       if (parrentChildCount === 0) {
+    newHTML =  newHTML.replace('{{col}}', 12); 
+    };
+  
     target.append(newHTML);
 
     $('#'+curID+' .yes').bind("click", function(e) {
