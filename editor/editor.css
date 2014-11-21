@@ -2,19 +2,18 @@ div {
 	display:block; 
 }
 
-div.col-sm-4 {
-    background-color: white;
-    border: 1px solid red;
-}
+
 
 div.col-sm-6 {
-    background-color: grey;
-    border: 1px solid green;
+    background-color: white;
+    border: 3px solid green;
+    overflow-x: auto; /* или scroll */
 }
 
 div.col-sm-12 {
-    background-color: yellow;
-    border: 1px solid green;
+    background-color: white;
+    border: 3px solid blue;
+    overflow-x: auto; 
 }
 
 

@@ -12,20 +12,19 @@ var next = 'продолжить';
     children: []
   };
   var questShablonHTML = '<div id="{{id}}" class="col-sm-{{col}}">'+
-                      '<button type="button" class="btn btn-default delete">delete</button>'+
+                      '<button type="button" class="btn btn-default btn-sm text-right delete">X</button>'+
   						        '<p>{{name}}<p>'+
   						        '<p>{{tooltip}}<p>'+
-                      '<button type="button" class="btn btn-default yes">+да</button>'+
-                      '<button type="button" class="btn btn-default no">+нет</button>'+
-                      '<button type="button" class="btn btn-default next">+дальше</button>'+
+                      '<button type="button" class="btn btn-default btn-sm yes">->да</button>'+
+                      '<button type="button" class="btn btn-default btn-sm no">->нет</button>'+
 					          '</div>'
                     ;
 
    var actionShablonHTML = '<div id="{{id}}" class="col-sm-{{col}}">'+
-                      '<button type="button" class="btn btn-default delete">delete</button>'+
+                      '<button type="button" class="btn btn-default btn-sm text-right delete">X</button>'+
                       '<p>{{name}}<p>'+
                       '<p>{{tooltip}}<p>'+
-                      '<button type="button" class="btn btn-default next">+дальше</button>'+
+                      '<button type="button" class="btn btn-default btn-sm next">->дальше</button>'+
                     '</div>'
                     ;  
 
@@ -170,9 +169,9 @@ function returTmp () {
     newHTML =  newHTML.replace('{{name}}', name + element.name);
     newHTML =  newHTML.replace('{{tooltip}}', element.tooltip);
 
-    if (parrentChildCount === 2) {
-    newHTML =  newHTML.replace('{{col}}', 4); 
-    };
+  //  if (parrentChildCount === 2) {
+  //  newHTML =  newHTML.replace('{{col}}', 4); 
+  //  };
 
        if (parrentChildCount === 1) {
     newHTML =  newHTML.replace('{{col}}', 6); 
