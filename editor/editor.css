@@ -2,6 +2,9 @@ div {
 	display:block; 
 }
 
+#target {
+	display:inline;
+}
 
 
 div.col-sm-6 {

@@ -13,11 +13,13 @@ var answerApp = function() {
       }
     }
   }
+
   function setHndlCustom(targetID, fn, context, arg) {
     $(targetID).bind("click", function() {
       fn.call(context, arg);
     });
   }
+
   function replaceCustom(shablon, replaceArr) {
     var result = "";
     result = shablon;
@@ -28,6 +30,7 @@ var answerApp = function() {
       return result;
     }
   }
+
   function setter(element, val) {
     if (val) {
       element.value = val;
@@ -38,6 +41,7 @@ var answerApp = function() {
       fn(val);
     });
   }
+
   function Model(elements) {
     var history = [];
     var firsVariant = {
@@ -127,7 +131,14 @@ var answerApp = function() {
         return curObj;
       },
       init : function(element) {
-       if (element) {
+
+      if ((Lockr.get('index')) &&  (Lockr.get('history')) && (Lockr.get('curObj'))) {
+        history=Lockr.get('history');
+        curObj = Lockr.get('curObj');
+        this.update(Lockr.get('index') )
+      }
+      else 
+if (element) {
         this.firsVariantSet("");
         this.secondVariantSet("");
         this.trdVariantSet("");
@@ -145,6 +156,9 @@ var answerApp = function() {
       }
       },
       update : function(index) {
+        Lockr.set('index', index);
+        Lockr.set('history', history);
+        Lockr.set('curObj', curObj);
         if (curObj.children && (index === 0 || index === 1)) {
           var tmp = {};
           tmp.element = curObj;
@@ -202,6 +216,7 @@ var answerApp = function() {
     view.buttonLeftSetHndl(model.update, model, 0);
     view.buttonBakcSetHndl(model.back, model, 0);
   }
+  
   var view$$0 = {
     answerShablon : "",
     buttonShablon : "",
@@ -264,7 +279,7 @@ var answerApp = function() {
       $.getJSON(data, function(data) {
         var model = Model();
         controller(model, view$$0);
-        model.init(data[0]);
+        model.init(data[0]);   
       });
     }
   };

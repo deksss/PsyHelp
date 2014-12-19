@@ -7,14 +7,26 @@ $(document).ready(function() {
     var item = themeController.getItemBeValue(val);
     $("#" + item.id).trigger("click");
   }
+
+
+function getFromlokr () {
+  //$('#basicModal').removeClass('fade');
+  if (Lockr.get('temeId')) {
+$("#" + Lockr.get('temeId')).trigger("click");  
+  }  
+  } 
+
+
   var pageController = function() {
     /** @type {Array} */
     var elementList = [{
       "id" : "#getStart",
-      "contentId" : "#main"
+      "contentId" : "#main",
+      "action" : "getFromlokr" 
     }, {
       "id" : "#goShemes",
-      "contentId" : "#main"
+      "contentId" : "#main",
+      "action" : "getFromlokr"
     }, {
       "id" : "#goHome",
       "contentId" : "#home"
@@ -41,23 +53,21 @@ $(document).ready(function() {
           $("#main, #home, #about, #help").addClass("hidden");
           $(target).removeClass("hidden");
         }
+        if (element.action) {
+       getFromlokr ();
+        }
       });
     };
     return{
-      /**
-       * @return {undefined}
-       */
       load : function() {
         self = this;
         elementList.forEach(addHndl);
+
       }
     };
   }();
+
   var themeController = function() {
-    /**
-     * @param {Object} item
-     * @return {undefined}
-     */
     function addItem(item) {
       var target = $("#shemeApp");
       /** @type {string} */
@@ -75,6 +85,7 @@ $(document).ready(function() {
         answerMethod(item.file, answerView);
         drawGrafMethod(item.file, diagramView);
         selectedDraw($("#" + item.id));
+        Lockr.set('temeId', item.id);
       });
     }
     /** @type {string} */
@@ -111,6 +122,7 @@ $(document).ready(function() {
         $.getJSON(data, function(json) {
           json.list.forEach(addItem);
         });
+         return this;
       },
       /**
        * @param {?} method
@@ -118,6 +130,7 @@ $(document).ready(function() {
        */
       setAnswerView : function(method) {
         answerView = method;
+         return this;
       },
       /**
        * @param {?} method
@@ -125,6 +138,7 @@ $(document).ready(function() {
        */
       setDiagramView : function(method) {
         diagramView = method;
+         return this;
       },
       /**
        * @param {?} method
@@ -132,6 +146,7 @@ $(document).ready(function() {
        */
       setAnswerMethod : function(method) {
         answerMethod = method;
+         return this;
       },
       /**
        * @param {?} method
@@ -139,6 +154,7 @@ $(document).ready(function() {
        */
       setDrawGrafMethod : function(method) {
         drawGrafMethod = method;
+         return this;
       },
       /**
        * @param {?} source
@@ -146,6 +162,7 @@ $(document).ready(function() {
        */
       setData : function(source) {
         data = source;
+        return this;
       },
       /**
        * @param {Object} val
@@ -162,6 +179,7 @@ $(document).ready(function() {
       }
     };
   }();
+
   var answerView = $("#answerForm");
   /** @type {string} */
   var diagramView = "[id=diagram]";
@@ -169,14 +187,17 @@ $(document).ready(function() {
   var theme = "js/listOftheme.json";
   var diagram = drawGraf;
   var answer = answerApp();
+  
   answer.draw("#answerContainer");
   pageController.load();
-  themeController.setAnswerView(answerView);
-  themeController.setDiagramView(diagramView);
-  themeController.setAnswerMethod(answer.load);
-  themeController.setDrawGrafMethod(drawGraf);
-  themeController.setData(theme);
-  themeController.load();
+
+  themeController.setAnswerView(answerView)
+  .setDiagramView(diagramView)
+  .setAnswerMethod(answer.load)
+  .setDrawGrafMethod(drawGraf)
+  .setData(theme)
+  .load();
+ 
   $(".minimize").bind("click", function(e) {
     var target = $(this).parent().find("div, ul");
     var icon = $(this).find("span");
@@ -190,10 +211,17 @@ $(document).ready(function() {
       icon.addClass("glyphicon-chevron-up");
     }
   });
+
   $("#findTheme").bind("click", findTheme);
+  
   $("#themeInput").keydown(function(event) {
     if (event.which == 13) {
       findTheme();
     }
   });
+$('#openBtn').click(function(){
+  $('#myModal').modal({show:true})
+});
+ 
+
 });

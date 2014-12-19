@@ -146,6 +146,13 @@ function returTmp () {
     var curID = id;    
     var that = this;
     var name='';
+  //  var bodyW = 0+$('body').css('width');
+    if (id>4) {
+   // bodyW=bodyW*1.3;
+   // $('body').css('width', bodyW);
+    // alert('2: '+bodyW);
+    $('body').width( $('body').width()+100);
+    }
     if (curID < 3) {
      var parrentChildCount = 0;      
         } 
