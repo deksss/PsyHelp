@@ -1,24 +1,5 @@
 $(document).ready(function() {
-  /**
-   * @return {undefined}
-   */
-  function findTheme() {
-    var val = $("#themeInput").val();
-    var item = themeController.getItemBeValue(val);
-    $("#" + item.id).trigger("click");
-  }
 
-
-function getFromlokr () {
-  //$('#basicModal').removeClass('fade');
-  if (Lockr.get('temeId')) {
-$("#" + Lockr.get('temeId')).trigger("click");  
-  }  
-  } 
-
-
-  var pageController = function() {
-    /** @type {Array} */
     var elementList = [{
       "id" : "#getStart",
       "contentId" : "#main",
@@ -37,10 +18,19 @@ $("#" + Lockr.get('temeId')).trigger("click");
       "id" : "#goAbout",
       "contentId" : "#about"
     }];
-    /**
-     * @param {Element} element
-     * @return {undefined}
-     */
+
+
+  function findTheme() {
+    var val = $("#themeInput").val();
+    var item = themeController.getItemBeValue(val);
+    $("#" + item.id).trigger("click");
+  }
+
+
+
+
+
+  var pageSwitcher = function() {
     var addHndl = function(element) {
       var elementBtn = element.id;
       var target = element.contentId;
@@ -54,15 +44,16 @@ $("#" + Lockr.get('temeId')).trigger("click");
           $(target).removeClass("hidden");
         }
         if (element.action) {
-       getFromlokr ();
+          if (Lockr.get('temeId')) {
+            $("#" + Lockr.get('temeId')).trigger("click");  
+          }  
         }
       });
     };
     return{
-      load : function() {
+      load : function(elementsList, content) {
         self = this;
         elementList.forEach(addHndl);
-
       }
     };
   }();
@@ -181,15 +172,14 @@ $("#" + Lockr.get('temeId')).trigger("click");
   }();
 
   var answerView = $("#answerForm");
-  /** @type {string} */
   var diagramView = "[id=diagram]";
-  /** @type {string} */
   var theme = "js/listOftheme.json";
   var diagram = drawGraf;
   var answer = answerApp();
   
   answer.draw("#answerContainer");
-  pageController.load();
+  var elementListTmp = elementList;
+  pageSwitcher.load(elementList);
 
   themeController.setAnswerView(answerView)
   .setDiagramView(diagramView)
@@ -219,9 +209,9 @@ $("#" + Lockr.get('temeId')).trigger("click");
       findTheme();
     }
   });
-$('#openBtn').click(function(){
-  $('#myModal').modal({show:true})
-});
+
  
+
+
 
 });
